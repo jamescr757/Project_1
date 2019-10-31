@@ -13,7 +13,7 @@ $(document).ready(function() {
             var posterTitle = response.results[i].title;
             var posterRelease = response.results[i].release_date;
             var cardNum = "cardNum" + i
-            var cardDiv = `<div class="col">
+            var cardDiv = `<div>
             <div class="card m-4 imageLayout">
             <img src="" class="card-img-top ${cardNum} " alt="">
             <div class="card-body">
@@ -22,7 +22,7 @@ $(document).ready(function() {
             </div>
           </div>
           </div>`;
-            var contentCreation = $(".row.cards").append(cardDiv);
+            var contentCreation = $(".card-deck").append(cardDiv);
             $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
             $(".cardNum" + i).attr("alt", posterTitle + " image");
 
