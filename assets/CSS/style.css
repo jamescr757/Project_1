@@ -13,13 +13,8 @@
 }
 
 .card img {
-    height: auto;
-    max-height: 278px;
+    /* height: auto; */
     width: 100%;
-}
-
-.card {
-    text-align: center;
 }
 
 .row.cards {
@@ -27,6 +22,6 @@
 }
 
 .imageLayout {
-    max-width: 185px;
-    float: left
+    width: 185px;
+    text-align: center;
 }
