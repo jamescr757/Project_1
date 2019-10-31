@@ -46,15 +46,27 @@ $(document).ready(function() {
     //Style from preset
     const frame01 = jSFrame.create({
         title: 'Movie Name',
-        left: 20,
-        top: 20,
-        width: 320,
-        height: 220,
+        left: 250,
+        top: 50,
+        width: 1020,
+        height: 680,
         appearanceName: 'yosemite', //Preset name is 'yosemite','redstone','popup'
         style: {
             backgroundColor: 'rgba(220,220,220,0.8)',
         },
-        html: '<div style="padding:200px;">Preset is selected by preset name</div>',
+        html: `
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link movieButton text-white " href="#" >Info</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link movieButton text-white" href="#">Trailer</a>
+            </li>
+        </ul>
+    </nav>
+    `,
         // url: 'https://youtube.com/embed/aF8G7QDk-1A'
     }).show();
 

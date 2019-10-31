@@ -19,9 +19,6 @@
     text-align: center;
 }
 
-/* .sidebar {
-    position: fixed;
-    bottom: 0;
-    top: 56px;
-    right: 0;
- } */
+.movieButton {
+    font-size: 15px;
+}
