@@ -42,6 +42,22 @@ $(document).ready(function() {
         }
     }
 
+    const jSFrame = new JSFrame();
+    //Style from preset
+    const frame01 = jSFrame.create({
+        title: 'Movie Name',
+        left: 20,
+        top: 20,
+        width: 320,
+        height: 220,
+        appearanceName: 'yosemite', //Preset name is 'yosemite','redstone','popup'
+        style: {
+            backgroundColor: 'rgba(220,220,220,0.8)',
+        },
+        html: '<div style="padding:200px;">Preset is selected by preset name</div>',
+        // url: 'https://youtube.com/embed/aF8G7QDk-1A'
+    }).show();
+
 
 
 });
