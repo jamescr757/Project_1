@@ -14,7 +14,7 @@ $(document).ready(function() {
             var posterRelease = response.results[i].release_date;
             var cardNum = "cardNum" + i
             var cardDiv = `<div class="col-12-sm col-3-lg col-6-md">
-            <div class="card m-4">
+            <div class="card m-4 imageLayout">
             <img src="" class="card-img-top ${cardNum} " alt="">
             <div class="card-body">
               <p class="card-text">${posterTitle}</p>

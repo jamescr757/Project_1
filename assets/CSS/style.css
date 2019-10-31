@@ -1,0 +1,32 @@
+#mainContent {
+    border: 2px solid black;
+    /* height: 450px; */
+}
+
+#rightColumn {
+    border: 2px solid black;
+    /* height: 450px; */
+}
+
+#footer {
+    background: lightgrey;
+}
+
+.card img {
+    height: auto;
+    max-height: 278px;
+    width: 100%;
+}
+
+.card {
+    text-align: center;
+}
+
+.row.cards {
+    justify-content: space-around;
+}
+
+.imageLayout {
+    max-width: 185px;
+    float: left
+}
