@@ -1,11 +1,9 @@
 #mainContent {
     border: 2px solid black;
-    /* height: 450px; */
 }
 
 #rightColumn {
     border: 2px solid black;
-    /* height: 450px; */
 }
 
 #footer {
@@ -13,12 +11,7 @@
 }
 
 .card img {
-    /* height: auto; */
     width: 100%;
-}
-
-.row.cards {
-    justify-content: space-around;
 }
 
 .imageLayout {

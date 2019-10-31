@@ -4,7 +4,9 @@ $(document).ready(function() {
         method: "GET"
     }).then(function(response) {
         console.log(response);
-        renderUpcoming(response)
+        renderUpcoming(response);
+        renderUpcomingText(response);
+
     });
 
     function renderUpcoming(response) {
@@ -25,8 +27,18 @@ $(document).ready(function() {
             var contentCreation = $(".card-deck").append(cardDiv);
             $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
             $(".cardNum" + i).attr("alt", posterTitle + " image");
+        }
+    }
 
-
+    function renderUpcomingText(response) {
+        for (var i = 0; i < 10; i++) {
+            var posterTitle = response.results[i].title;
+            var posterRelease = response.results[i].release_date;
+            var cardNum = "cardNum" + i
+            var cardDiv = `<li class="nav-item p-0 m-0">
+            <p class="card-text">${i+1}.${posterTitle} "  "${posterRelease}</p>
+            </li>`;
+            var contentCreation = $(".upcomingList").append(cardDiv);
         }
     }
 
