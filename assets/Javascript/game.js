@@ -12,28 +12,28 @@ $(document).ready(function() {
     });
 
     // popular api call
-    // $.ajax({
-    //     url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-    //     method: "GET"
-    // }).then(function(response) {
-    //     console.log(response);
-    //     // renderUpcoming(response);
-    //     // renderUpcomingText(response);
-    //     // renderCarousel(response);
-    //     renderPopular(response);
-    // });
+    $.ajax({
+        url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+        method: "GET"
+    }).then(function(response) {
+        console.log(response);
+        // renderUpcoming(response);
+        // renderUpcomingText(response);
+        // renderCarousel(response);
+        renderPopular(response);
+    });
 
     // top_rated api call
-    // $.ajax({
-    //     url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-    //     method: "GET"
-    // }).then(function(response) {
-    //     console.log(response);
-    //     // renderUpcoming(response);
-    //     // renderUpcomingText(response);
-    //     // renderCarousel(response);
-    //     renderTopRated(response);
-    // });
+    $.ajax({
+        url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+        method: "GET"
+    }).then(function(response) {
+        console.log(response);
+        // renderUpcoming(response);
+        // renderUpcomingText(response);
+        // renderCarousel(response);
+        renderTopRated(response);
+    });
 
     function renderUpcoming(response) {
         for (var i = 0; i < 10; i++) {
@@ -67,12 +67,12 @@ $(document).ready(function() {
             var cardNum = "cardNum" + i
             var cardDiv = `<div>
             <div class="card m-4 imageLayout">
-            <img src="" class="card-img-top ${cardNum} " alt="">
-            <div class="card-body">
-              <p class="card-text"><b>${posterTitle}</b></p>
-              <p class="card-text poster-release">${posterRelease}</p>
+                <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" class="card-img-top ${cardNum}" alt="${posterTitle} image">
+                <div class="card-body">
+                    <p class="card-text"><b>${posterTitle}</b></p>
+                    <p class="card-text poster-release">${posterRelease}</p>
+                </div>
             </div>
-          </div>
           </div>`;
             var contentCreation = $(".card-deck.popular").append(cardDiv);
             $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
