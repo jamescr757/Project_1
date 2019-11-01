@@ -25,7 +25,76 @@ $(document).ready(function() {
             </div>
           </div>
           </div>`;
-            var contentCreation = $(".card-deck").append(cardDiv);
+            var contentCreation = $(".card-deck.upcoming").append(cardDiv);
+            $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
+            $(".cardNum" + i).attr("alt", posterTitle + " image");
+            $(".card img").on("click", movieClick);
+        }
+    }
+
+    function renderPopular(response) {
+        for (var i = 0; i < 10; i++) {
+            var posterImg = response.results[i].poster_path;
+            var posterTitle = response.results[i].title;
+            var posterRelease = response.results[i].release_date;
+            posterRelease = moment(posterRelease).format('MMMM Do');
+            var cardNum = "cardNum" + i
+            var cardDiv = `<div>
+            <div class="card m-4 imageLayout">
+            <img src="" class="card-img-top ${cardNum} " alt="">
+            <div class="card-body">
+              <p class="card-text"><b>${posterTitle}</b></p>
+              <p class="card-text poster-release">${posterRelease}</p>
+            </div>
+          </div>
+          </div>`;
+            var contentCreation = $(".card-deck.popular").append(cardDiv);
+            $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
+            $(".cardNum" + i).attr("alt", posterTitle + " image");
+            $(".card img").on("click", movieClick);
+        }
+    }
+
+    function renderTopRated(response) {
+        for (var i = 0; i < 10; i++) {
+            var posterImg = response.results[i].poster_path;
+            var posterTitle = response.results[i].title;
+            var posterRelease = response.results[i].release_date;
+            posterRelease = moment(posterRelease).format('MMMM Do');
+            var cardNum = "cardNum" + i
+            var cardDiv = `<div>
+            <div class="card m-4 imageLayout">
+            <img src="" class="card-img-top ${cardNum} " alt="">
+            <div class="card-body">
+              <p class="card-text"><b>${posterTitle}</b></p>
+              <p class="card-text poster-release">${posterRelease}</p>
+            </div>
+          </div>
+          </div>`;
+            var contentCreation = $(".card-deck.top-rated").append(cardDiv);
+            $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
+            $(".cardNum" + i).attr("alt", posterTitle + " image");
+            $(".card img").on("click", movieClick);
+        }
+    }
+
+    function renderSearchCards(response) {
+        for (var i = 0; i < 10; i++) {
+            var posterImg = response.results[i].poster_path;
+            var posterTitle = response.results[i].title;
+            var posterRelease = response.results[i].release_date;
+            posterRelease = moment(posterRelease).format('MMMM Do');
+            var cardNum = "cardNum" + i
+            var cardDiv = `<div>
+            <div class="card m-4 imageLayout">
+            <img src="" class="card-img-top ${cardNum} " alt="">
+            <div class="card-body">
+              <p class="card-text"><b>${posterTitle}</b></p>
+              <p class="card-text poster-release">${posterRelease}</p>
+            </div>
+          </div>
+          </div>`;
+            var contentCreation = $(".card-deck.search-cards").append(cardDiv);
             $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
             $(".cardNum" + i).attr("alt", posterTitle + " image");
             $(".card img").on("click", movieClick);
