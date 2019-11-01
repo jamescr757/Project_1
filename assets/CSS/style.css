@@ -55,6 +55,13 @@ a.sidebar {
 
 .carousel-item img {
     height: auto;
+    max-height: 700px;
+    max-width: 450px;
+}
+
+.bd-example {
+    max-height: 700px;
+    max-width: 450px;
 }
 
 .imageLayout {

@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    
+    // upcoming api call
     $.ajax({
         url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
         method: "GET"
@@ -8,6 +10,30 @@ $(document).ready(function() {
         renderUpcomingText(response);
         renderCarousel(response);
     });
+
+    // popular api call
+    // $.ajax({
+    //     url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+    //     method: "GET"
+    // }).then(function(response) {
+    //     console.log(response);
+    //     // renderUpcoming(response);
+    //     // renderUpcomingText(response);
+    //     // renderCarousel(response);
+    //     renderPopular(response);
+    // });
+
+    // top_rated api call
+    // $.ajax({
+    //     url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+    //     method: "GET"
+    // }).then(function(response) {
+    //     console.log(response);
+    //     // renderUpcoming(response);
+    //     // renderUpcomingText(response);
+    //     // renderCarousel(response);
+    //     renderTopRated(response);
+    // });
 
     function renderUpcoming(response) {
         for (var i = 0; i < 10; i++) {
