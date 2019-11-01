@@ -1,5 +1,12 @@
 $(document).ready(function() {
     
+    // global movie info variables
+    var posterImg;
+    var posterTitle; 
+    var posterRelease; 
+    var posterId;
+    var cardDiv;
+
     // upcoming api call
     $.ajax({
         url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
@@ -15,10 +22,6 @@ $(document).ready(function() {
         url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
         method: "GET"
     }).then(function(response) {
-        console.log(response);
-        // renderUpcoming(response);
-        // renderUpcomingText(response);
-        // renderCarousel(response);
         renderPopular(response);
     });
 
@@ -27,106 +30,79 @@ $(document).ready(function() {
         url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
         method: "GET"
     }).then(function(response) {
-        console.log(response);
-        // renderUpcoming(response);
-        // renderUpcomingText(response);
-        // renderCarousel(response);
         renderTopRated(response);
     });
 
+    function assignResponseData(response, index) {
+        posterImg = response.results[index].poster_path;
+
+        posterTitle = response.results[index].title;
+
+        posterRelease = response.results[index].release_date;
+
+        posterId = response.results[index].id;
+    }
+
+    function renderMovieCard(pageName) {
+        cardDiv = `
+            <div>
+                <div class="card m-3 imageLayout">
+                    <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" 
+                        class="card-img-top" 
+                        alt="${posterTitle} image"
+                        data-name=${posterTitle}
+                        data-release=${posterRelease}
+                        data-id=${posterId}
+                        />
+                    <div class="card-body">
+                        <p class="card-text"><b>${posterTitle}</b></p>
+                        <p class="card-text poster-release">${posterRelease}</p>
+                    </div>
+                </div>
+            </div>`;
+
+        $(`.card-deck.${pageName}`).append(cardDiv);
+
+        $(".card img").on("click", movieClick);
+    }
+
     function renderUpcoming(response) {
         for (var i = 0; i < 10; i++) {
-            var posterImg = response.results[i].poster_path;
-            var posterTitle = response.results[i].title;
-            var posterRelease = response.results[i].release_date;
-            var posterId = response.results[i].id;
+            assignResponseData(response, i);
+            // format release date based on page
             posterRelease = moment(posterRelease).format('MMMM Do');
-            var cardNum = "cardNum" + i
-            var cardDiv = `<div>
-            <div class="card m-4 imageLayout">
-            <img src="" class="card-img-top ${cardNum} " alt="">
-            <div class="card-body">
-              <p class="card-text"><b>${posterTitle}</b></p>
-              <p class="card-text poster-release">${posterRelease}</p>
-            </div>
-          </div>
-          </div>`;
-            var contentCreation = $(".card-deck.upcoming").append(cardDiv);
-            $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
-            $(".cardNum" + i).attr("alt", posterTitle + " image");
-            $(".card img").on("click", movieClick);
+
+            renderMovieCard('upcoming');
         }
     }
 
     function renderPopular(response) {
         for (var i = 0; i < 10; i++) {
-            var posterImg = response.results[i].poster_path;
-            var posterTitle = response.results[i].title;
-            var posterRelease = response.results[i].release_date;
-            posterRelease = moment(posterRelease).format('MMMM Do');
-            var cardNum = "cardNum" + i
-            var cardDiv = `<div>
-            <div class="card m-4 imageLayout">
-                <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" class="card-img-top ${cardNum}" alt="${posterTitle} image">
-                <div class="card-body">
-                    <p class="card-text"><b>${posterTitle}</b></p>
-                    <p class="card-text poster-release">${posterRelease}</p>
-                </div>
-            </div>
-          </div>`;
-            var contentCreation = $(".card-deck.popular").append(cardDiv);
-            $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
-            $(".cardNum" + i).attr("alt", posterTitle + " image");
-            $(".card img").on("click", movieClick);
+            assignResponseData(response, i);
+            // format release date based on page
+            posterRelease = moment(posterRelease).format('MMMM YYYY');
+            
+            renderMovieCard('popular');
         }
     }
 
     function renderTopRated(response) {
         for (var i = 0; i < 10; i++) {
-            var posterImg = response.results[i].poster_path;
-            var posterTitle = response.results[i].title;
-            var posterRelease = response.results[i].release_date;
-            posterRelease = moment(posterRelease).format('MMMM Do');
-            var cardNum = "cardNum" + i
-            var cardDiv = `<div>
-            <div class="card m-4 imageLayout">
-            <img src="" class="card-img-top ${cardNum} " alt="">
-            <div class="card-body">
-              <p class="card-text"><b>${posterTitle}</b></p>
-              <p class="card-text poster-release">${posterRelease}</p>
-            </div>
-          </div>
-          </div>`;
-            var contentCreation = $(".card-deck.top-rated").append(cardDiv);
-            $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
-            $(".cardNum" + i).attr("alt", posterTitle + " image");
-            $(".card img").on("click", movieClick);
+            assignResponseData(response, i);
+            // format release date for specific page
+            posterRelease = moment(posterRelease).format('YYYY');
+
+            renderMovieCard('top-rated');
         }
     }
 
     function renderSearchCards(response) {
         for (var i = 0; i < 10; i++) {
-            var posterImg = response.results[i].poster_path;
-            var posterTitle = response.results[i].title;
-            var posterRelease = response.results[i].release_date;
-            posterRelease = moment(posterRelease).format('MMMM Do');
-            var cardNum = "cardNum" + i
-            var cardDiv = `<div>
-            <div class="card m-4 imageLayout">
-            <img src="" class="card-img-top ${cardNum} " alt="">
-            <div class="card-body">
-              <p class="card-text"><b>${posterTitle}</b></p>
-              <p class="card-text poster-release">${posterRelease}</p>
-            </div>
-          </div>
-          </div>`;
-            var contentCreation = $(".card-deck.search-cards").append(cardDiv);
-            $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
-            $(".cardNum" + i).attr("alt", posterTitle + " image");
-            $(".cardNum" + i).attr("data-name", posterTitle);
-            $(".cardNum" + i).attr("data-release", posterRelease);
-            $(".cardNum" + i).attr("data-id", [posterId]);
-            $(".card img").on("click", movieClick);
+            assignResponseData(response, i);
+            // format release date for specific page
+            posterRelease = moment(posterRelease).format('MMMM YYYY');
+
+            renderMovieCard('search-cards');
         }
     }
 
@@ -140,7 +116,7 @@ $(document).ready(function() {
             <p class="card-text my-0">${i+1}. <b>${posterTitle}</b></p>
             <p class="card-text my-0 poster-release">${posterRelease}</p>
             </li>`;
-            var contentCreation = $(".upcomingList").append(cardDiv);
+            $(".upcomingList").append(cardDiv);
         }
     }
 
