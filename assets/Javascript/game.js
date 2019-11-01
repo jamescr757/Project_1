@@ -6,7 +6,7 @@ $(document).ready(function() {
         console.log(response);
         renderUpcoming(response);
         renderUpcomingText(response);
-
+        renderCarousel(response);
     });
 
     function renderUpcoming(response) {
@@ -14,13 +14,14 @@ $(document).ready(function() {
             var posterImg = response.results[i].poster_path;
             var posterTitle = response.results[i].title;
             var posterRelease = response.results[i].release_date;
+            posterRelease = moment(posterRelease).format('MMMM Do');
             var cardNum = "cardNum" + i
             var cardDiv = `<div>
             <div class="card m-4 imageLayout">
             <img src="" class="card-img-top ${cardNum} " alt="">
             <div class="card-body">
-              <p class="card-text">${posterTitle}</p>
-              <p class="card-text">${posterRelease}</p>
+              <p class="card-text"><b>${posterTitle}</b></p>
+              <p class="card-text poster-release">${posterRelease}</p>
             </div>
           </div>
           </div>`;
@@ -35,15 +36,52 @@ $(document).ready(function() {
         for (var i = 0; i < 10; i++) {
             var posterTitle = response.results[i].title;
             var posterRelease = response.results[i].release_date;
+            posterRelease = moment(posterRelease).format('MMMM Do');
             var cardNum = "cardNum" + i
-            var cardDiv = `<li class="nav-item p-0 m-0">
-            <p class="card-text">${i+1}.${posterTitle} "  "${posterRelease}</p>
+            var cardDiv = `<li class="nav-item my-4">
+            <p class="card-text my-0">${i+1}. <b>${posterTitle}</b></p>
+            <p class="card-text my-0 poster-release">${posterRelease}</p>
             </li>`;
             var contentCreation = $(".upcomingList").append(cardDiv);
         }
     }
 
+    function renderCarousel(response) {
 
+        for (var i = 0; i < 10; i++) {
+            var posterImg = response.results[i].poster_path;
+            var posterRelease = response.results[i].release_date;
+            posterRelease = moment(posterRelease).format('MMMM Do');
+
+            if (i === 0) {
+                $('.carousel-indicators').append(`
+                <li data-target="#carouselCaptions" data-slide-to="${i}" class="active"></li>
+                `);
+
+                $('.carousel-inner').append(`
+                    <div class="carousel-item active">
+                        <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-block">
+                            <p>${posterRelease}</p>
+                        </div>
+                    </div>
+                `)
+            } else {
+                $('.carousel-indicators').append(`
+                <li data-target="#carouselCaptions" data-slide-to="${i}"></li>
+                `);
+
+                $('.carousel-inner').append(`
+                    <div class="carousel-item">
+                        <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-block">
+                            <p>${posterRelease}</p>
+                        </div>
+                    </div>
+                `)
+            }
+        }
+    }
 
     var clickCounter = 0;
     var windowOpen = false;
