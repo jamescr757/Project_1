@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+
     // upcoming api call
     $.ajax({
         url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
@@ -54,6 +54,7 @@ $(document).ready(function() {
             var contentCreation = $(".card-deck.upcoming").append(cardDiv);
             $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
             $(".cardNum" + i).attr("alt", posterTitle + " image");
+            $(".cardNum" + i).attr("data-id", [posterId]);
             $(".card img").on("click", movieClick);
         }
     }
