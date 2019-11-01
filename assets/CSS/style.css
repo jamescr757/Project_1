@@ -1,32 +1,68 @@
-#mainContent {
-    border: 2px solid black;
+#indexBody {
+    background-color: black;
 }
 
-#rightColumn {
-    border: 2px solid black;
+#footer.index {
+    border-top: white 1px solid;
 }
 
-#footer {
-    background: lightgrey;
+.navbar.index {
+    border-bottom: white 1px solid;
+}
+
+#footer, .imageLayout, .sidebar {
+    background-color: black;
+    color: white;
+}
+
+nav.navbar {
+    background-color: black;
+}
+
+.navbar-brand, .navbar-brand:hover, a.nav-link {
+    color: white;
 }
 
 .card img {
     width: 100%;
+    border-bottom: white 1px solid;
+}
+
+a.sidebar {
+    font-size: 1.5rem;
+    /* text-decoration: underline white; */
+    margin-bottom: -0.5rem;
+    border-bottom: white 0.5px solid;
+}
+
+.poster-release {
+    color: silver;
+    font-style: italic;
+}
+
+.carousel-caption p {
+    font-size: 1.5rem;
+    margin-bottom: 0;
 }
 
 .card img:hover {
     cursor: pointer;
 }
 
+.carousel-item img {
+    height: auto;
+}
+
 .imageLayout {
-    width: 185px;
+    width: 200px;
+    height: 404px;
     text-align: center;
 }
 
 .movieButton {
     font-size: 15px;
     float: left;
-    Margin: 5px
+    margin: 5px
 }
 
 .movieInfo {
