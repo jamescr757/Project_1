@@ -1,0 +1,40 @@
+#mainContent {
+    border: 2px solid black;
+}
+
+#rightColumn {
+    border: 2px solid black;
+}
+
+#footer {
+    background: lightgrey;
+}
+
+.card img {
+    width: 100%;
+}
+
+.card img:hover {
+    cursor: pointer;
+}
+
+.imageLayout {
+    width: 185px;
+    text-align: center;
+}
+
+.movieButton {
+    font-size: 15px;
+    float: left;
+    Margin: 5px
+}
+
+.movieInfo {
+    background-color: rgba(255, 255, 255, 0.85);
+    font-size: 15px;
+    position: absolute;
+    top: 49px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
