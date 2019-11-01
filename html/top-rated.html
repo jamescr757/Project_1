@@ -4,17 +4,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="assets/CSS/reset.css">
+    <link rel="stylesheet" href="../assets/CSS/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/CSS/style.css">
+    <link rel="stylesheet" href="../assets/CSS/style.css">
     <title>The Movie Source</title>
 
 </head>
 
-<body id="indexBody">
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark index">
-        <a class="navbar-brand" href="index.html">The Movie Source</a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="../index.html">The Movie Source</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -22,19 +22,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="html/upcoming.html">Upcoming</a>
+                    <a class="nav-link" href="upcoming.html">Upcoming<span class="sr-only">(current)</span></a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="html/popular.html" tabindex="-1">Popular</a>
+                    <a class="nav-link" href="popular.html" tabindex="-1">Popular</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="html/top-rated.html" tabindex="-1">Top Rated</a>
+                    <a class="nav-link active" href="top-rated.html" tabindex="-1">Top Rated<span class="sr-only">(current)</span></a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="html/search.html" tabindex="-1">Search</a>
+                    <a class="nav-link" href="search.html" tabindex="-1">Search</a>
                 </li>
             </ul>
             
@@ -44,36 +44,18 @@
 
     <div class="container-fluid mb-4">
         <div class="row">
-            <div class="col-md-1 col-lg-2 col-xl-3 col-1"></div>
-            <div class="col-md-8 col-lg-6 col-xl-4 col-10 mt-4">
-                <div class="bd-example">
-                    <div id="carouselCaptions" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                           
-                        </ol>
-                        <div class="carousel-inner">
-                          
-                        </div>
+            <div class="col-md-10 col-12">
+                <div class="card-deck top-rated">
 
-                        <a class="carousel-control-prev" href="#carouselCaptions" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselCaptions" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
                 </div>
             </div>
 
-            <div class="col-md-1 col-lg-2 col-xl-3 col-1"></div>
-            <nav class="col-md-2 d-none d-md-block sidebar index">
+            <nav class="col-md-2 d-none d-md-block sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item pt-2 upcomingList">
                             <!-- do we want this to be a clickable link? -->
-                            <a class="nav-link p-0 sidebar" href="upcoming.html">Upcoming</a>
+                            <a class="nav-link p-0 sidebar" href="#">Top Rated</a>
                         </li>
 
                     </ul>
@@ -89,7 +71,7 @@
 
 
     <div class="row justify-content-md-center">
-        <div id="footer" class="fixed-bottom col-md-12 index">
+        <div id="footer" class="fixed-bottom col-md-12">
             FOOTER
         </div>
     </div>
@@ -110,7 +92,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"></script>
-    <script src="assets/Javascript/game.js"></script>
+    <script src="../assets/Javascript/game.js"></script>
 </body>
 
 </html>

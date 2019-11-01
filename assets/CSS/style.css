@@ -1,40 +1,145 @@
-#mainContent {
-    border: 2px solid black;
+html {
+    font-size: 16px;
 }
 
-#rightColumn {
-    border: 2px solid black;
+#indexBody {
+    background-color: black;
 }
 
-#footer {
-    background: lightgrey;
+#footer.index {
+    border-top: white 1px solid;
+}
+
+.navbar.index {
+    border-bottom: white 1px solid;
+}
+
+#footer,
+.imageLayout,
+.sidebar {
+    background-color: black;
+    color: white;
+}
+
+nav.navbar {
+    background-color: black;
+}
+
+.navbar-brand,
+.navbar-brand:hover,
+a.nav-link {
+    color: white;
 }
 
 .card img {
     width: 100%;
+    border-bottom: white 1px solid;
+}
+
+a.sidebar {
+    font-size: 1.5rem;
+    /* text-decoration: underline white; */
+    margin-bottom: -0.5rem;
+    border-bottom: white 0.5px solid;
+}
+
+.poster-release {
+    color: silver;
+    font-style: italic;
+}
+
+.carousel-caption p {
+    font-size: 1.5rem;
+    margin-bottom: 0;
 }
 
 .card img:hover {
     cursor: pointer;
 }
 
+.carousel-item img {
+    height: auto;
+    max-height: 700px;
+    max-width: 450px;
+}
+
+.bd-example {
+    max-height: 700px;
+    max-width: 450px;
+}
+
 .imageLayout {
-    width: 185px;
+    width: 200px;
+    height: 404px;
     text-align: center;
 }
 
 .movieButton {
     font-size: 15px;
     float: left;
-    Margin: 5px
+    margin: 5px;
+    color: black;
 }
 
 .movieInfo {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 1);
     font-size: 15px;
     position: absolute;
     top: 49px;
     bottom: 0;
     right: 0;
     left: 0;
+}
+
+.card-header {
+    background-color: black;
+    color: white;
+}
+
+#search-card {
+    border: black 1.5px solid; 
+    border-bottom-left-radius: 0.75rem;   
+    border-bottom-right-radius: 0.75rem;   
+}
+
+#search-button {
+    background-color: black;
+}
+
+#search-button:hover {
+    background-color: rgb(55, 55, 55);
+}
+
+#search-button:focus {
+    box-shadow: 0 0 0 0.1rem rgba(0,0,0,1);
+}
+
+#search-form {
+    width: 80%;
+    margin: 5% auto;
+    border-radius: 0.75rem;
+    overflow-wrap: inherit;
+    ;
+}
+
+.moviePoster {
+    margin: 20px;
+    float: left;
+    width: 350px;
+    height: auto;
+}
+
+.movieData {
+    float: none;
+    margin-top: 20px;
+}
+
+.movieHeaders {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.movieWindowInfo {
+    font-weight: normal;
+    font-size: 16px;
 }
