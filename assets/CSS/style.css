@@ -10,7 +10,9 @@
     border-bottom: white 1px solid;
 }
 
-#footer, .imageLayout, .sidebar {
+#footer,
+.imageLayout,
+.sidebar {
     background-color: black;
     color: white;
 }
@@ -19,7 +21,9 @@ nav.navbar {
     background-color: black;
 }
 
-.navbar-brand, .navbar-brand:hover, a.nav-link {
+.navbar-brand,
+.navbar-brand:hover,
+a.nav-link {
     color: white;
 }
 
@@ -62,15 +66,40 @@ a.sidebar {
 .movieButton {
     font-size: 15px;
     float: left;
-    margin: 5px
+    margin: 5px;
+    color: black;
 }
 
 .movieInfo {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 1);
     font-size: 15px;
     position: absolute;
     top: 49px;
     bottom: 0;
     right: 0;
     left: 0;
+    overflow-wrap: inherit;
+    ;
+}
+
+.moviePoster {
+    margin: 20px;
+    float: left;
+    width: 350px;
+    height: auto;
+}
+
+.movieData {
+    float: none;
+    margin-top: 20px;
+}
+
+.movieHeaders {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.movieWindowInfo {
+    font-weight: normal;
+    font-size: 16px;
 }
