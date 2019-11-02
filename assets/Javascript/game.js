@@ -11,22 +11,13 @@ $(document).ready(function() {
     var clickCounter = 0;
     var windowOpen = false;
 
-    // upcoming api call
-    $.ajax({
-        url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-        method: "GET"
-    }).then(function(response) {
-        renderUpcoming(response);
-        renderUpcomingText(response);
-        renderCarousel(response);
-    });
-
     // popular api call
     $.ajax({
         url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
         method: "GET"
     }).then(function(response) {
         renderPopular(response);
+        renderHomeImage(response, 'left');
     });
 
     // top_rated api call
@@ -35,6 +26,7 @@ $(document).ready(function() {
         method: "GET"
     }).then(function(response) {
         renderTopRated(response);
+        renderHomeImage(response, 'right');
     });
 
     // now_playing api call
@@ -43,6 +35,16 @@ $(document).ready(function() {
         method: "GET"
     }).then(function(response) {
         renderNowPlaying(response);
+        renderCarousel(response);
+    });
+    
+    // upcoming api call
+    $.ajax({
+        url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+        method: "GET"
+    }).then(function(response) {
+        renderUpcoming(response);
+        renderUpcomingText(response);
     });
 
     // search movies api call 
@@ -213,38 +215,47 @@ $(document).ready(function() {
     function renderCarousel(response) {
 
         for (var i = 0; i < 10; i++) {
-            var posterImg = response.results[i].poster_path;
-            var posterRelease = response.results[i].release_date;
-            posterRelease = moment(posterRelease).format('MMMM Do');
+            posterImg = response.results[i].poster_path;
+            // posterRelease = response.results[i].release_date;
+            // posterRelease = moment(posterRelease).format('MMMM Do');
 
-            if (i === 0) {
-                $('.carousel-indicators').append(`
-                <li data-target="#carouselCaptions" data-slide-to="${i}" class="active"></li>
-                `);
-
-                $('.carousel-inner').append(`
-                    <div class="carousel-item active">
-                        <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-block">
-                            <p>${posterRelease}</p>
-                        </div>
-                    </div>
-                `)
-            } else {
-                $('.carousel-indicators').append(`
+            $('.carousel-indicators').append(`
                 <li data-target="#carouselCaptions" data-slide-to="${i}"></li>
                 `);
 
                 $('.carousel-inner').append(`
                     <div class="carousel-item">
                         <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-block">
-                            <p>${posterRelease}</p>
-                        </div>
                     </div>
                 `)
-            }
+            
+            // if want a carousel caption
+            // <div class="carousel-caption d-xl-block d-none">
+            // <p>${posterRelease}</p>
+            // </div>
+
+            if (i === 0) {
+                $('.carousel-indicators li').addClass('active');
+                $('.carousel-item').addClass('active');
+            } 
         }
+    }
+
+    // render still image of poster on home page 
+    // generate random number between 0-19
+    // use random number to select element from response.results array 
+    // append image to home page side column
+    function renderHomeImage(response, side) {
+        var randomNumber = Math.floor(Math.random() * 20);
+
+        posterImg = response.results[randomNumber].poster_path;
+        posterTitle = response.results[randomNumber].title;
+        $(`#home-${side}-col`).append(`
+            <img 
+                src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}"
+                alt="${posterTitle} poster" 
+            />
+        `);
     }
 
     function movieClick(response) {
