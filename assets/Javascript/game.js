@@ -37,6 +37,14 @@ $(document).ready(function() {
         renderTopRated(response);
     });
 
+    // now_playing api call
+    $.ajax({
+        url: "https://api.themoviedb.org/3/movie/now_playing?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+        method: "GET"
+    }).then(function(response) {
+        renderNowPlaying(response);
+    });
+
     // search movies api call 
     // $.ajax({
     //     url: "https://api.themoviedb.org/3/search/movie?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1&include_adult=false",
@@ -76,6 +84,27 @@ $(document).ready(function() {
         $(".card img").on("click", movieClick);
     }
 
+    
+    function renderPopular(response) {
+        for (var i = 0; i < 10; i++) {
+            assignResponseData(response, i);
+            // format release date based on page
+            posterRelease = moment(posterRelease).format('MMMM YYYY');
+            
+            renderMovieCard('popular', posterRelease);
+        }
+    }
+    
+    function renderTopRated(response) {
+        for (var i = 0; i < 10; i++) {
+            assignResponseData(response, i);
+            // format release date for specific page
+            posterRelease = moment(posterRelease).format('YYYY');
+            
+            renderMovieCard('top-rated', `Rating: ${posterRating}`);
+        }
+    }
+    
     function renderUpcoming(response) {
         for (var i = 0; i < 10; i++) {
             assignResponseData(response, i);
@@ -86,23 +115,13 @@ $(document).ready(function() {
         }
     }
 
-    function renderPopular(response) {
+    function renderNowPlaying(response) {
         for (var i = 0; i < 10; i++) {
             assignResponseData(response, i);
             // format release date based on page
-            posterRelease = moment(posterRelease).format('MMMM YYYY');
-            
-            renderMovieCard('popular', posterRelease);
-        }
-    }
+            posterRelease = moment(posterRelease).format('MMMM Do');
 
-    function renderTopRated(response) {
-        for (var i = 0; i < 10; i++) {
-            assignResponseData(response, i);
-            // format release date for specific page
-            posterRelease = moment(posterRelease).format('YYYY');
-
-            renderMovieCard('top-rated', `Rating: ${posterRating}`);
+            renderMovieCard('now-playing', `Rating: ${posterRating}`);
         }
     }
 
