@@ -143,7 +143,7 @@ $(document).ready(function() {
 
             // only render movie card if there is an image
             if (posterImg) {
-                renderMovieCard('search-cards');
+                renderMovieCard('search-cards', posterRelease);
             }
         }
     }
