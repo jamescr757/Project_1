@@ -50,9 +50,10 @@ $(document).ready(function() {
         posterTitle = response.results[index].title;
         posterRelease = response.results[index].release_date;
         posterId = response.results[index].id;
+        posterRating = response.results[index].vote_average;
     }
 
-    function renderMovieCard(pageName) {
+    function renderMovieCard(pageName, subInfo) {
         cardDiv = `
             <div>
                 <div class="card m-3 imageLayout">
@@ -65,7 +66,7 @@ $(document).ready(function() {
                         />
                     <div class="card-body">
                         <p class="card-text"><b>${posterTitle}</b></p>
-                        <p class="card-text poster-release">${posterRelease}</p>
+                        <p class="card-text poster-release">${subInfo}</p>
                     </div>
                 </div>
             </div>`;
@@ -81,7 +82,7 @@ $(document).ready(function() {
             // format release date based on page
             posterRelease = moment(posterRelease).format('MMMM Do');
 
-            renderMovieCard('upcoming');
+            renderMovieCard('upcoming', posterRelease);
         }
     }
 
@@ -91,7 +92,7 @@ $(document).ready(function() {
             // format release date based on page
             posterRelease = moment(posterRelease).format('MMMM YYYY');
             
-            renderMovieCard('popular');
+            renderMovieCard('popular', posterRelease);
         }
     }
 
@@ -101,7 +102,7 @@ $(document).ready(function() {
             // format release date for specific page
             posterRelease = moment(posterRelease).format('YYYY');
 
-            renderMovieCard('top-rated');
+            renderMovieCard('top-rated', `Rating: ${posterRating}`);
         }
     }
 
