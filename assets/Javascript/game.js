@@ -154,8 +154,6 @@ $(document).ready(function() {
     // grab and sanitize user inputs and add to base url 
     // render search card deck based on length of results array (max 10 cards)
     function searchClick() {
-        console.log('search click active');
-        
         // api host and set fullUrl var
         var host = "https://api.themoviedb.org/3/search/"
         

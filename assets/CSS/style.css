@@ -122,8 +122,9 @@ p.card-text {
 
 #search-form {
     width: 80%;
-    margin: 5% auto;
+    margin: 10% auto;
     border-radius: 0.75rem;
+    min-width: 230px;
 }
 
 .form-check {
