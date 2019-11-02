@@ -56,30 +56,39 @@
         
                         <form>
                             <div class="form-group">
-                                <label for="search-term">Title</label>
-                                <input type="text" class="form-control" id="search-term">
+                                <label for="form-title">Title</label>
+                                <input type="text" class="form-control" id="form-title">
                             </div>
                             
                             <div class="form-group">
-                                <label for="article-number">Type</label>
-                                <select class="form-control" id="article-number">
+                                <label for="form-type">Type</label>
+                                <select class="form-control" id="form-type">
                                     <option>Movie</option>
-                                    <option>Show</option>
-                                    <option>Episode</option>
+                                    <option>TV Show</option>
                                 </select>
                             </div>
-                
-                            <div class="form-group">
-                                <label for="start-year">Year (Optional):</label>
-                                <input type="text" class="form-control" id="start-year">
+
+                            <!-- <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadio" id="form-movie" value="movie">
+                                <label class="form-check-label" for="form-movie">Movie</label>
                             </div>
-                
-                            <!-- <div class="form-group">
-                                <label for="end-year">End Year (Optional):</label>
-                                <input type="text" class="form-control" id="end-year">
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadio" id="form-tv" value="tv-show">
+                                <label class="form-check-label" for="form-tv">TV Show</label>
                             </div> -->
                 
-                            <a href="search-cards.html" id="search-button" role="button" class="btn btn-dark">
+                            <div class="form-group">
+                                <label for="form-year">Year (Optional):</label>
+                                <input type="text" maxlength=4 class="form-control" id="form-year">
+                            </div>
+                
+                            <!-- <a href="search-cards.html" id="search-button" role="button" class="btn btn-dark">
+                                <i class="fas fa-search"></i>
+                                Search
+                            </a> -->
+
+                            <a href="#" id="search-button" role="button" class="btn btn-dark">
                                 <i class="fas fa-search"></i>
                                 Search
                             </a>

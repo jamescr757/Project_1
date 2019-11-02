@@ -7,6 +7,10 @@ $(document).ready(function() {
     var posterId;
     var cardDiv;
 
+    // global variables for js frame window
+    var clickCounter = 0;
+    var windowOpen = false;
+
     // upcoming api call
     $.ajax({
         url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
@@ -33,13 +37,26 @@ $(document).ready(function() {
         renderTopRated(response);
     });
 
+    // search movies api call 
+    // $.ajax({
+    //     url: "https://api.themoviedb.org/3/search/movie?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1&include_adult=false",
+    //     method: "GET"
+    // }).then(response => {
+    //     console.log(response);
+    // })
+
+    // // search tv shows api call 
+    // $.ajax({
+    //     url: "https://api.themoviedb.org/3/search/tv?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+    //     method: "GET"
+    // }).then(response => {
+    //     console.log(response);
+    // })
+
     function assignResponseData(response, index) {
         posterImg = response.results[index].poster_path;
-
         posterTitle = response.results[index].title;
-
         posterRelease = response.results[index].release_date;
-
         posterId = response.results[index].id;
     }
 
@@ -96,14 +113,77 @@ $(document).ready(function() {
         }
     }
 
+    // need to base for loop off number of results
+    // max iterations 10
+    // render error screen if user search gets no results
     function renderSearchCards(response) {
-        for (var i = 0; i < 10; i++) {
+        
+        if (response.results.length <= 10) {
+            var numberOfCards = response.results.length;
+        } else {
+            var numberOfCards = 10;
+        }
+
+        for (var i = 0; i < numberOfCards; i++) {
             assignResponseData(response, i);
             // format release date for specific page
-            posterRelease = moment(posterRelease).format('MMMM YYYY');
+            posterRelease = moment(posterRelease).format('YYYY');
 
-            renderMovieCard('search-cards');
+            // only render movie card if there is an image
+            if (posterImg) {
+                renderMovieCard('search-cards');
+            }
         }
+    }
+
+    // run ajax method if search button clicked on search form
+    // grab and sanitize user inputs and add to base url 
+    // render search card deck based on length of results array (max 10 cards)
+    function searchClick() {
+        console.log('search click active');
+        
+        // api host and set fullUrl var
+        var host = "https://api.themoviedb.org/3/search/"
+        var fullUrl;
+        
+        // movie and tv query base parameters
+        var movieStarterParams = "movie?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1&include_adult=false";
+        var tvStarterParams = "tv?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1";
+
+        var userSearch = $("#form-title").val().trim();
+        var userType = $('#form-type').val();
+        var userYear = $('#form-year').val();
+
+        if (userType === "Movie") {
+            fullUrl = `${host}${movieStarterParams}&query=${userSearch}`;
+        } else {
+            fullUrl = `${host}${tvStarterParams}&query=${userSearch}`;
+        }
+        
+        // different year parameter names for tv shows and movies
+        if (userYear && userType === "Movie") {
+            fullUrl += `&year=${userYear}`;
+        } else if (userYear && userType === "TV Show") {
+            fullUrl += `&first_air_date_year=${userYear}`;
+        }
+
+        $.ajax({
+            url: fullUrl,
+            method: "GET"
+        }).then(response => {
+            console.log(response);
+            $('.col-md-10').empty();
+            $('.col-md-10').append(`
+                <div class="card-deck search-cards">
+                </div>
+            `)
+            renderSearchCards(response);
+        }).catch(error => {
+            $('#search-card').empty();
+            $('#search-card').append(`
+                <h5 class='text-center text-primary'>No results. Click search or refresh the page to try a different search.</h5>
+            `)
+        })
     }
 
     function renderUpcomingText(response) {
@@ -111,7 +191,6 @@ $(document).ready(function() {
             var posterTitle = response.results[i].title;
             var posterRelease = response.results[i].release_date;
             posterRelease = moment(posterRelease).format('MMMM Do');
-            var cardNum = "cardNum" + i
             var cardDiv = `<li class="nav-item my-4">
             <p class="card-text my-0">${i+1}. <b>${posterTitle}</b></p>
             <p class="card-text my-0 poster-release">${posterRelease}</p>
@@ -156,9 +235,6 @@ $(document).ready(function() {
             }
         }
     }
-
-    var clickCounter = 0;
-    var windowOpen = false;
 
     function movieClick(response) {
         var clickInfo = $(this);
@@ -259,5 +335,7 @@ $(document).ready(function() {
         });
     }
 
+
+    $('#search-button').on('click', searchClick);
 
 });

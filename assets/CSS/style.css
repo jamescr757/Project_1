@@ -126,8 +126,11 @@ p.card-text {
     width: 80%;
     margin: 5% auto;
     border-radius: 0.75rem;
-    overflow-wrap: inherit;
-    ;
+}
+
+.form-check {
+    margin-bottom: 1rem;
+    /* margin-top: 0.75rem; */
 }
 
 .moviePoster {
@@ -150,4 +153,9 @@ p.card-text {
 .movieWindowInfo {
     font-weight: normal;
     font-size: 16px;
+}
+
+h5 {
+    /* margin-top: 17%; */
+    margin: auto;
 }
