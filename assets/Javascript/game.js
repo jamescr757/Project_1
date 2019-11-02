@@ -45,14 +45,6 @@ $(document).ready(function() {
     //     console.log(response);
     // })
 
-    // // search tv shows api call 
-    // $.ajax({
-    //     url: "https://api.themoviedb.org/3/search/tv?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-    //     method: "GET"
-    // }).then(response => {
-    //     console.log(response);
-    // })
-
     function assignResponseData(response, index) {
         posterImg = response.results[index].poster_path;
         posterTitle = response.results[index].title;
@@ -144,28 +136,27 @@ $(document).ready(function() {
         
         // api host and set fullUrl var
         var host = "https://api.themoviedb.org/3/search/"
-        var fullUrl;
         
         // movie and tv query base parameters
         var movieStarterParams = "movie?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1&include_adult=false";
-        var tvStarterParams = "tv?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1";
+        // var tvStarterParams = "tv?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1";
 
         var userSearch = $("#form-title").val().trim();
-        var userType = $('#form-type').val();
+        // var userType = $('#form-type').val();
         var userYear = $('#form-year').val();
 
-        if (userType === "Movie") {
-            fullUrl = `${host}${movieStarterParams}&query=${userSearch}`;
-        } else {
-            fullUrl = `${host}${tvStarterParams}&query=${userSearch}`;
-        }
+        var fullUrl = `${host}${movieStarterParams}&query=${userSearch}`;
+
+        // if (userType === "Movie") {
+        //     fullUrl = `${host}${movieStarterParams}&query=${userSearch}`;
+        // } else {
+        //     fullUrl = `${host}${tvStarterParams}&query=${userSearch}`;
+        // }
         
         // different year parameter names for tv shows and movies
-        if (userYear && userType === "Movie") {
+        if (userYear) {
             fullUrl += `&year=${userYear}`;
-        } else if (userYear && userType === "TV Show") {
-            fullUrl += `&first_air_date_year=${userYear}`;
-        }
+        } 
 
         $.ajax({
             url: fullUrl,
