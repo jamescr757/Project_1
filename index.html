@@ -11,26 +11,7 @@
     <link rel="stylesheet" href="assets/CSS/style.css">
     <title>The Movie Source</title>
 
-<style>
-form{
-  max-width: 500px;
-  margin: 10px auto;
-  border: 1px solid #ccc;
-}
-.msg-wrapper{
-  max-height: 250px;
-  overflow: auto;
-}
-.msg-wrapper em{
-  font-size: 15px;
-  padding-right: 20px;
-  font-weight: bold;
-}
-.msg-wrapper div{
-  font-size: 16px
-}
 
-</style>
 </head>
 
 <body>
@@ -87,44 +68,35 @@ form{
                         <li class="nav-item pt-2 upcomingList">
                             <a class="nav-link active p-0 " href="#">Upcoming</a>
                         </li>
-
                     </ul>
                 </div>
+                <!-- Chat form -->
+                <div class="chat-container">
+                    <h4>Let's chat!</h4>
+                    <form>
+                        <div class="row">
+                            <div class="col-md">
+                                <div id='messagesDiv' class="msg-wrapper">
+                                </div>
+                                <hr />     
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                    <input type="text" id='nameInput' placeholder='id yourself' />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                    <textarea id='messageInput' placeholder='enter your text' rows="3"></textarea>
+                            </div>
+                        </div>
+                    </form>
+
+                 </div>   
+
             </nav>
-
-<!-- Chat form -->
-<form>
-  <div class="row">
-    <div class="large-12 columns">
-      <div id='messagesDiv' class="msg-wrapper"></div>
-      <hr />
-     </div>
-  </div>
-  
-  <div class="row">
-    <div class="large-12 columns">
-      <label>Name
-        <input type="text" id='nameInput' placeholder='Name' />
-      </label>
     </div>
-  </div>
-  <div class="row">
-    <div class="large-12 columns">
-      <label>Message
-        <textarea id='messageInput' placeholder='Message'></textarea>
-      </label>
-    </div>
-  </div>
-</form>
-
-<div class="row justify-content-md-center">
-    <div id="footer" class="fixed-bottom col-md-12">
-        FOOTER
-    </div>
-</div>
-</div>
-
-
 
 
 

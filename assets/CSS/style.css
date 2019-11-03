@@ -7,7 +7,12 @@
 }
 
 #footer {
-    background: lightgrey;
+    background: black;
+    color: white;
+    padding:10px 0;
+    padding-left: 7px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
 }
 
 .card img {
@@ -22,3 +27,59 @@
 .movieButton {
     font-size: 15px;
 }
+
+    <!-- CHat form styling  
+    form {                                                                                                                                                                                                         
+        border: 1px solid #ccc;
+  }
+    h4{
+        text-align: center;
+    }   
+    .chat-container {
+        
+        margin-top: 15px;
+        border: solid 1px black;                                                                   
+        position: absolute;
+        width: 100%;
+        right: 0;   
+        background-color: rgb(248,249,250);
+        border-radius: 6px;
+    }
+    .msg-wrapper{
+        max-height: 300px;
+        overflow: auto;
+        padding-left: 3px;
+    }
+    .msg-wrapper em{
+        font-size: 10px;
+        font-weight: bold;
+    }
+    .msg-wrapper div{
+        font-size: 10px;
+    }
+    input[type=text] {
+        width: 95%;
+        padding: 3px;
+        margin-left: 3px;
+        box-sizing: border-box;
+        border-radius: 6px;
+        background-color: lightgrey;
+    }
+    textarea {
+        width: 95%;
+        height: 100px;
+        padding: 3px;
+        box-sizing: border-box;
+        border-radius: 6px;
+        background-color: lightgrey;
+        resize: none;
+        margin-left: 3px;
+      }
+      ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: rgb(248,249,250);
+        font-size: 11px;
+      }
+      
+
+
+  
