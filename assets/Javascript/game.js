@@ -206,14 +206,39 @@ $(document).ready(function() {
                 const jSFrame = new JSFrame();
                 //Style from preset
                 const frame01 = jSFrame.create({
-                    title: 'Movie Name',
+                    title: clickInfo.attr("data-name"),
                     left: xMargin,
                     top: yMargin,
                     width: frameWidth,
                     height: frameHeight,
-                    appearanceName: 'yosemite', //Preset name is 'yosemite','redstone','popup'
+                    appearanceName: 'material',
+                    appearanceParam: {
+                        border: {
+                            shadow: '2px 2px 10px  rgba(0, 0, 0, 0.5)',
+                            width: 0,
+                            radius: 6,
+                        },
+                        titleBar: {
+                            color: 'white',
+                            background: '#4784d4',
+                            leftMargin: 40,
+                            height: 30,
+                            fontSize: 14,
+                            buttonWidth: 60,
+                            buttonHeight: 30,
+                            buttonColor: 'white',
+                            buttons: [{
+                                fa: 'fas fa-times',
+                                name: 'closeButton',
+                                visible: true
+                            }, ],
+                        }
+                    },
+
                     style: {
                         backgroundColor: 'rgba(220,220,220,0.6)',
+                        overflow: 'hidden',
+                        width: '100%',
                     },
                     html: `
                         <ul class="nav nav-pills" style="background-color: rgba(0,0,0,.7)" >
@@ -234,6 +259,12 @@ $(document).ready(function() {
                 }).show();
                 loadInfo(clickInfo);
                 windowOpen = true
+
+                window.onclick = function(event) {
+                    if (event.path[0].className === "jsframe-modal-window-background") {
+                        frame01.closeFrame();
+                    }
+                }
                 frame01.showModal(_frame => {
                     //Callback when modal window is closed.
                     windowOpen = false;
@@ -303,7 +334,8 @@ $(document).ready(function() {
                         allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen> </iframe>`
                         )
-                    }
+
+                    };
 
                 })
             });
