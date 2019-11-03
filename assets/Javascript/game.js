@@ -11,49 +11,139 @@ $(document).ready(function() {
     var clickCounter = 0;
     var windowOpen = false;
 
-    // popular api call
-    $.ajax({
-        url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-        method: "GET"
-    }).then(function(response) {
-        renderPopular(response);
-        renderHomeImage(response, 'left');
-    });
+    // global fullUrl variable for search api call
+    var fullUrl;
 
-    // top_rated api call
-    $.ajax({
-        url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-        method: "GET"
-    }).then(function(response) {
-        renderTopRated(response);
-        renderHomeImage(response, 'right');
-    });
-
-    // now_playing api call
-    $.ajax({
-        url: "https://api.themoviedb.org/3/movie/now_playing?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-        method: "GET"
-    }).then(function(response) {
-        renderNowPlaying(response);
-        renderCarousel(response);
-    });
+    // popular api call for movie cards 
+    function popularApiCards() {
+        $.ajax({
+            url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+            method: "GET"
+        }).then(function(response) {
+            renderReleaseDateCard(response, 'popular', "MMMM YYYY");
+        });
+    }
     
-    // upcoming api call
-    $.ajax({
-        url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-        method: "GET"
-    }).then(function(response) {
-        renderUpcoming(response);
-        renderUpcomingText(response);
-    });
+    // popular api call for sidebar text
+    function popularApiSidebarText() {
+        $.ajax({
+            url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+            method: "GET"
+        }).then(function(response) {
+            renderSidebarReleaseDateText(response, "Popular", "MMMM YYYY");
+        });
+    }
+
+    // popular api call for home page image
+    function popularApiHomeImage() { 
+        $.ajax({
+            url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+            method: "GET"
+        }).then(function(response) {
+            renderHomeImage(response, 'left');
+        });
+    }
+
+    // top_rated api call for movie cards
+    function topRatedApiCards() { 
+        $.ajax({
+            url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+            method: "GET"
+        }).then(function(response) {
+            renderRatingCard(response, 'top-rated');
+        });
+    }
+
+    // top_rated api call for sidebar text
+    function topRatedApiSidebarText() { 
+        $.ajax({
+            url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+            method: "GET"
+        }).then(function(response) {
+            renderSidebarRatingText(response, "Top Rated");
+        });
+    }
+
+    // top_rated api call for home page image
+    function topRatedApiHomeImage() { 
+        $.ajax({
+            url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+            method: "GET"
+        }).then(function(response) {
+            renderHomeImage(response, 'right');
+        });
+    }
+
+
+    // now_playing api call for movie cards
+    function nowPlayingApiCards() { 
+        $.ajax({
+            url: "https://api.themoviedb.org/3/movie/now_playing?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+            method: "GET"
+        }).then(function(response) {
+            renderRatingCard(response, 'now-playing');
+        });
+    }
+
+    // now_playing api call for sidebar text
+    function nowPlayingApiSidebarText() { 
+        $.ajax({
+            url: "https://api.themoviedb.org/3/movie/now_playing?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+            method: "GET"
+        }).then(function(response) {
+            renderSidebarRatingText(response, "Now Playing");
+        });
+    }
+        
+    // now_playing api call for home page carousel
+    function nowPlayingApiCarousel() { 
+        $.ajax({
+            url: "https://api.themoviedb.org/3/movie/now_playing?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+            method: "GET"
+        }).then(function(response) {
+            renderCarousel(response);
+        });
+    }
+
+
+    // upcoming api call for movie cards
+    function upcomingApiCards() { 
+        $.ajax({
+            url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+            method: "GET"
+        }).then(function(response) {
+            renderReleaseDateCard(response, 'upcoming', 'MMMM Do');
+        });
+    }
+
+    // upcoming api call for sidebar text
+    function upcomingApiSidebarText() { 
+        $.ajax({
+            url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+            method: "GET"
+        }).then(function(response) {
+            renderSidebarReleaseDateText(response, "Upcoming", 'MMMM Do');
+        });
+    }
 
     // search movies api call 
-    // $.ajax({
-    //     url: "https://api.themoviedb.org/3/search/movie?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1&include_adult=false",
-    //     method: "GET"
-    // }).then(response => {
-    //     console.log(response);
-    // })
+    // render movie cards with release year
+    function searchApiCards() {
+        fullUrl = sessionStorage.getItem('searchApiUrl');
+
+        $.ajax({
+            url: fullUrl,
+            method: "GET"
+        })
+        .then(response => {
+            renderSearchCards(response);
+        })
+        .catch(() => {
+            $('.card-deck.search-cards').append(`
+            <h5 class='text-center text-primary'>No results. Go back or click 'Search' above to try again.</h5>
+            `)
+        });
+    }
 
     function assignResponseData(response, index) {
         posterImg = response.results[index].poster_path;
@@ -85,45 +175,24 @@ $(document).ready(function() {
 
         $(".card img").on("click", movieClick);
     }
-
     
-    function renderPopular(response) {
+    // passed test
+    function renderReleaseDateCard(response, targetClassName, dateFormat) {
         for (var i = 0; i < 10; i++) {
             assignResponseData(response, i);
             // format release date based on page
-            posterRelease = moment(posterRelease).format('MMMM YYYY');
+            posterRelease = moment(posterRelease).format(dateFormat);
             
-            renderMovieCard('popular', posterRelease);
+            renderMovieCard(targetClassName, posterRelease);
         }
     }
     
-    function renderTopRated(response) {
+    // passed test
+    function renderRatingCard(response, targetClassName) {
         for (var i = 0; i < 10; i++) {
             assignResponseData(response, i);
-            // format release date for specific page
-            posterRelease = moment(posterRelease).format('YYYY');
             
-            renderMovieCard('top-rated', `Rating: ${posterRating}`);
-        }
-    }
-    
-    function renderUpcoming(response) {
-        for (var i = 0; i < 10; i++) {
-            assignResponseData(response, i);
-            // format release date based on page
-            posterRelease = moment(posterRelease).format('MMMM Do');
-
-            renderMovieCard('upcoming', posterRelease);
-        }
-    }
-
-    function renderNowPlaying(response) {
-        for (var i = 0; i < 10; i++) {
-            assignResponseData(response, i);
-            // format release date based on page
-            posterRelease = moment(posterRelease).format('MMMM Do');
-
-            renderMovieCard('now-playing', `Rating: ${posterRating}`);
+            renderMovieCard(targetClassName, `Rating: ${posterRating}`);
         }
     }
 
@@ -152,61 +221,63 @@ $(document).ready(function() {
 
     // run ajax method if search button clicked on search form
     // grab and sanitize user inputs and add to base url 
-    // render search card deck based on length of results array (max 10 cards)
+    // save full url in session storage for search-cards.html file
     function searchClick() {
-        // api host and set fullUrl var
+        // api host 
         var host = "https://api.themoviedb.org/3/search/"
         
-        // movie and tv query base parameters
+        // movie query base parameters
         var movieStarterParams = "movie?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1&include_adult=false";
-        // var tvStarterParams = "tv?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1";
 
         var userSearch = $("#form-title").val().trim();
-        // var userType = $('#form-type').val();
         var userYear = $('#form-year').val();
 
         var fullUrl = `${host}${movieStarterParams}&query=${userSearch}`;
-
-        // if (userType === "Movie") {
-        //     fullUrl = `${host}${movieStarterParams}&query=${userSearch}`;
-        // } else {
-        //     fullUrl = `${host}${tvStarterParams}&query=${userSearch}`;
-        // }
         
-        // different year parameter names for tv shows and movies
+        // user inputs a year, concat the value
         if (userYear) {
             fullUrl += `&year=${userYear}`;
         } 
 
-        $.ajax({
-            url: fullUrl,
-            method: "GET"
-        }).then(response => {
-            console.log(response);
-            $('.col-md-10').empty();
-            $('.col-md-10').append(`
-                <div class="card-deck search-cards">
-                </div>
-            `)
-            renderSearchCards(response);
-        }).catch(error => {
-            $('#search-card').empty();
-            $('#search-card').append(`
-                <h5 class='text-center text-primary'>No results. Click search or refresh the page to try a different search.</h5>
-            `)
-        })
+        // need to save url because new html page resets the DOM and loses user inputs
+        sessionStorage.clear();
+        sessionStorage.setItem('searchApiUrl', fullUrl);
+
+        // blank out search inputs if user hits back button
+        $("#form-title").val("");
+        $('#form-year').val("");
     }
 
-    function renderUpcomingText(response) {
+    // passed test
+    function renderSidebarReleaseDateText(response, sidebarTitle, dateFormat) {
         for (var i = 0; i < 10; i++) {
-            var posterTitle = response.results[i].title;
-            var posterRelease = response.results[i].release_date;
-            posterRelease = moment(posterRelease).format('MMMM Do');
-            var cardDiv = `<li class="nav-item my-4">
-            <p class="card-text my-0">${i+1}. <b>${posterTitle}</b></p>
-            <p class="card-text my-0 poster-release">${posterRelease}</p>
-            </li>`;
-            $(".upcomingList").append(cardDiv);
+            assignResponseData(response, i);
+            posterRelease = moment(posterRelease).format(dateFormat);
+
+            var cardDiv = `
+                <li class="nav-item my-4">
+                    <p class="card-text my-0">${i+1}. <b>${posterTitle}</b></p>
+                    <p class="card-text my-0 poster-release">${posterRelease}</p>
+                </li>`;
+
+            $(".sideList").append(cardDiv);
+            $('a.sidebar').text(sidebarTitle);
+        }
+    }
+
+    // passed test
+    function renderSidebarRatingText(response, sidebarTitle) {
+        for (var i = 0; i < 10; i++) {
+            assignResponseData(response, i);
+
+            var cardDiv = `
+                <li class="nav-item my-4">
+                    <p class="card-text my-0">${i+1}. <b>${posterTitle}</b></p>
+                    <p class="card-text my-0 poster-release">Rating: ${posterRating}</p>
+                </li>`;
+
+            $(".sideList").append(cardDiv);
+            $('a.sidebar').text(sidebarTitle);
         }
     }
 
@@ -355,7 +426,42 @@ $(document).ready(function() {
         });
     }
 
+    // based on which page is active call the necessary api functions
+    // if popular active, fire popular cards 
+    // if top rated active, fire top rated cards
+    // if upcoming active, fire upcoming cards
+    // if now playing active, fire now playing cards
+    // if search active, don't do anything (search form hardcoded)
+    // default is home page, so fire now playing carousel and popular + top rated home images
+    switch ($('.nav-link.active').text()) {
+        case 'Popular(current)':
+            popularApiCards();
+            break;
 
+        case 'Top Rated(current)':
+            topRatedApiCards();
+            break;
+
+        case 'Upcoming(current)':
+            upcomingApiCards();
+            break;
+
+        case 'Now Playing(current)':
+            nowPlayingApiCards();
+            break;
+
+        case 'Search(current)':
+            searchApiCards();
+            break;
+
+        default:
+            nowPlayingApiCarousel();
+            popularApiHomeImage();
+            topRatedApiHomeImage();
+            break;
+    }
+
+    // register click event for search button on search form
     $('#search-button').on('click', searchClick);
 
 });
