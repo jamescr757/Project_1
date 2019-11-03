@@ -3,7 +3,7 @@ $(document).ready(function() {
         url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
         method: "GET"
     }).then(function(response) {
-        console.log(response);
+//        console.log(response);
         renderUpcoming(response);
         renderUpcomingText(response);
 
@@ -109,56 +109,40 @@ $(document).ready(function() {
         }
         clickCounter++;
     }
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyBy_JKrHE0OhLK13PiWTTa_qSlps2oBKyg",
-        authDomain: "ft-vcantu.firebaseapp.com",
-        databaseURL: "https://ft-vcantu.firebaseio.com",
-        projectId: "ft-vcantu",
-        storageBucket: "ft-vcantu.appspot.com",
-        messagingSenderId: "362903158601",
-        appId: "1:362903158601:web:2ead65dc49172fbd6e2498",
-        measurementId: "G-0Q5HC468C0"
+    var firebaseConfig = {
+        apiKey: "AIzaSyByy4qbn8q_ok3HqY9L9yQawaHfa9w-JUo",
+        authDomain: "themoviesource-ec7f8.firebaseapp.com",
+        databaseURL: "https://themoviesource-ec7f8.firebaseio.com",
+        projectId: "themoviesource-ec7f8",
+        storageBucket: "themoviesource-ec7f8.appspot.com",
+        messagingSenderId: "404075692642",
+        appId: "1:404075692642:web:3bac80c1fcde772b70c73b",
+        measurementId: "G-J0187NSR5D"
       };
-    
       // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-    
-    //var database = firebase.database();
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
 
-// Instantiating Firechat
-    var firebaseRef = firebase.database().ref("/firechat");
-    var chat = new Firechat(firebaseRef);
-    
-    chat.setUser(userId, userName, function(user) {
-      chat.resumeSession();
-    });
 
-    function login() {
-        // Log the user in via Twitter
-        var provider = new firebase.auth.TwitterAuthProvider();
-        firebase.auth().signInWithPopup(provider).catch(function(error) {
-          console.log("Error authenticating user:", error);
-        });
-      }
-    
-      firebase.auth().onAuthStateChanged(function(user) {
-        // Once authenticated, instantiate Firechat with the logged in user
-        if (user) {
-          initChat(user);
+      var database = firebase.database();
+
+      var myDataRef = new firebase.database().ref();
+      $('#messageInput').keypress(function (e) {
+        if (e.keyCode == 13) {
+          var name = $('#nameInput').val();
+          var text = $('#messageInput').val();
+          myDataRef.push({name: name, text: text});
+          $('#messageInput').val('');
         }
       });
+      myDataRef.on('child_added', function(snapshot) {
+        var message = snapshot.val();
+        displayChatMessage(message.name, message.text);
+      });
+      function displayChatMessage(name, text) {
+        $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+      };
 
-    function initChat(user) {
-        // Get a Firebase Database ref
-        var chatRef = firebase.database().ref("chat");
-    
-        // Create a Firechat instance
-        var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
-    
-        // Set the Firechat user
-        chat.setUser(user.uid, user.displayName);
-      }
 
 });

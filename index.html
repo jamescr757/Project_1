@@ -11,6 +11,26 @@
     <link rel="stylesheet" href="assets/CSS/style.css">
     <title>The Movie Source</title>
 
+<style>
+form{
+  max-width: 500px;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+}
+.msg-wrapper{
+  max-height: 250px;
+  overflow: auto;
+}
+.msg-wrapper em{
+  font-size: 15px;
+  padding-right: 20px;
+  font-weight: bold;
+}
+.msg-wrapper div{
+  font-size: 16px
+}
+
+</style>
 </head>
 
 <body>
@@ -71,41 +91,52 @@
                     </ul>
                 </div>
             </nav>
-<!-- Authenticate with Twitter to start chating -->
-        <div id="firechat-wrapper">
-            <button onclick="login('twitter');">Login with Twitter</button>
-        </div>
-<!-- Div for the chat window -->            
-            <div id="firechat-wrapper"></div>
-        </div>
+
+<!-- Chat form -->
+<form>
+  <div class="row">
+    <div class="large-12 columns">
+      <div id='messagesDiv' class="msg-wrapper"></div>
+      <hr />
+     </div>
+  </div>
+  
+  <div class="row">
+    <div class="large-12 columns">
+      <label>Name
+        <input type="text" id='nameInput' placeholder='Name' />
+      </label>
     </div>
-
-
-
-
-
-    <div class="row justify-content-md-center">
-        <div id="footer" class="fixed-bottom col-md-12">
-            FOOTER
-        </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <label>Message
+        <textarea id='messageInput' placeholder='Message'></textarea>
+      </label>
     </div>
+  </div>
+</form>
+
+<div class="row justify-content-md-center">
+    <div id="footer" class="fixed-bottom col-md-12">
+        FOOTER
     </div>
+</div>
+</div>
 
 
 
 
 
 
-
-
-
-
-    <!-- JavaScript -->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-database.js"></script>
+    <script>https:"https//cdn.firebase.com/js/client/2.0.4/firebase.js"</script>
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
-    <script src="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.js"></script>
     <script src="https://riversun.github.io/jsframe/jsframe.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
