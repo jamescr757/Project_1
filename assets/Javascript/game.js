@@ -14,116 +14,34 @@ $(document).ready(function() {
     // global fullUrl variable for search api call
     var fullUrl;
 
-    // popular api call for movie cards 
-    function popularApiCards() {
-        $.ajax({
-            url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-            method: "GET"
-        }).then(function(response) {
-            renderReleaseDateCard(response, 'popular', "MMMM YYYY");
-        });
-    }
-    
-    // popular api call for sidebar text
-    function popularApiSidebarText() {
-        $.ajax({
-            url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-            method: "GET"
-        }).then(function(response) {
-            renderSidebarReleaseDateText(response, "Popular", "MMMM YYYY");
-        });
+    // global ajax objects for each category 
+    var popularAjax = {
+        url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+        method: "GET" 
     }
 
-    // popular api call for home page image
-    function popularApiHomeImage() { 
-        $.ajax({
-            url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-            method: "GET"
-        }).then(function(response) {
-            renderHomeImage(response, 'left');
-        });
+    var topRatedAjax = {
+        url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+        method: "GET"
     }
 
-    // top_rated api call for movie cards
-    function topRatedApiCards() { 
-        $.ajax({
-            url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-            method: "GET"
-        }).then(function(response) {
-            renderRatingCard(response, 'top-rated');
-        });
+    var upcomingAjax = {
+        url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+        method: "GET"
     }
 
-    // top_rated api call for sidebar text
-    function topRatedApiSidebarText() { 
-        $.ajax({
-            url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-            method: "GET"
-        }).then(function(response) {
-            renderSidebarRatingText(response, "Top Rated");
-        });
+    var nowPlayingAjax = {
+        url: "https://api.themoviedb.org/3/movie/now_playing?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
+        method: "GET"
     }
 
-    // top_rated api call for home page image
-    function topRatedApiHomeImage() { 
-        $.ajax({
-            url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-            method: "GET"
-        }).then(function(response) {
-            renderHomeImage(response, 'right');
-        });
-    }
-
-
-    // now_playing api call for movie cards
-    function nowPlayingApiCards() { 
-        $.ajax({
-            url: "https://api.themoviedb.org/3/movie/now_playing?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-            method: "GET"
-        }).then(function(response) {
-            renderRatingCard(response, 'now-playing');
-        });
-    }
-
-    // now_playing api call for sidebar text
-    function nowPlayingApiSidebarText() { 
-        $.ajax({
-            url: "https://api.themoviedb.org/3/movie/now_playing?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-            method: "GET"
-        }).then(function(response) {
-            renderSidebarRatingText(response, "Now Playing");
-        });
-    }
-        
-    // now_playing api call for home page carousel
-    function nowPlayingApiCarousel() { 
-        $.ajax({
-            url: "https://api.themoviedb.org/3/movie/now_playing?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-            method: "GET"
-        }).then(function(response) {
-            renderCarousel(response);
-        });
-    }
-
-
-    // upcoming api call for movie cards
-    function upcomingApiCards() { 
-        $.ajax({
-            url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-            method: "GET"
-        }).then(function(response) {
-            renderReleaseDateCard(response, 'upcoming', 'MMMM Do');
-        });
-    }
-
-    // upcoming api call for sidebar text
-    function upcomingApiSidebarText() { 
-        $.ajax({
-            url: "https://api.themoviedb.org/3/movie/upcoming?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
-            method: "GET"
-        }).then(function(response) {
-            renderSidebarReleaseDateText(response, "Upcoming", 'MMMM Do');
-        });
+    // generic api call 
+    function apiCall(ajaxObj, responseFunction, responseFxnInput1, responseFxnInput2, responseFxnInput3) {
+        $.ajax(ajaxObj)
+        .then(response => {
+            // response function inputs are optional
+            responseFunction(response, responseFxnInput1, responseFxnInput2, responseFxnInput3);
+        })
     }
 
     // search movies api call 
@@ -248,8 +166,49 @@ $(document).ready(function() {
         $('#form-year').val("");
     }
 
+    // render sidebar content 
+    // random number between 0-3 to pick one of the categories 
+    // based on category, fire release date text or rating text functions
+    function renderSidebarContent() {
+        // ["Popular", "Top Rated", "Upcoming", "Now Playing"]
+        var randomNumber = Math.floor(Math.random() * 4);
+
+        switch (randomNumber) {
+            // popular was picked
+            case 0:
+                apiCall(popularAjax, renderSidebarReleaseDateText, "Popular", "MMMM YYYY", 'popular.html');
+                break;
+
+            // top rated was picked
+            case 1:
+                apiCall(topRatedAjax, renderSidebarRatingText, "Top Rated", 'top-rated.html');
+                break;
+
+            // now playing was picked
+            case 2:
+                apiCall(nowPlayingAjax, renderSidebarRatingText, "Now Playing", 'now-playing.html');
+                break;
+
+            // upcoming was picked
+            case 3:
+                apiCall(upcomingAjax, renderSidebarReleaseDateText, "Upcoming", "MMMM Do", 'upcoming.html');
+                break;
+        
+            default:
+                break;
+        }
+    }
+
     // passed test
-    function renderSidebarReleaseDateText(response, sidebarTitle, dateFormat) {
+    function renderSidebarReleaseDateText(response, sidebarTitle, dateFormat, pageLink) {
+        // blank out sidebar first and then append
+        $(".sideList").empty();
+        $('.sideList').append(`
+            <a class="nav-link p-0 sidebar" href=${pageLink}>
+                ${sidebarTitle}
+            </a>
+        `);
+
         for (var i = 0; i < 10; i++) {
             assignResponseData(response, i);
             posterRelease = moment(posterRelease).format(dateFormat);
@@ -261,12 +220,19 @@ $(document).ready(function() {
                 </li>`;
 
             $(".sideList").append(cardDiv);
-            $('a.sidebar').text(sidebarTitle);
         }
     }
 
     // passed test
-    function renderSidebarRatingText(response, sidebarTitle) {
+    function renderSidebarRatingText(response, sidebarTitle, pageLink) {
+        // blank out sidebar first and then append title and text
+        $(".sideList").empty();
+        $('.sideList').append(`
+            <a class="nav-link p-0 sidebar" href=${pageLink}>
+                ${sidebarTitle}
+            </a>
+        `);
+
         for (var i = 0; i < 10; i++) {
             assignResponseData(response, i);
 
@@ -277,7 +243,6 @@ $(document).ready(function() {
                 </li>`;
 
             $(".sideList").append(cardDiv);
-            $('a.sidebar').text(sidebarTitle);
         }
     }
 
@@ -427,37 +392,47 @@ $(document).ready(function() {
     }
 
     // based on which page is active call the necessary api functions
-    // if popular active, fire popular cards 
-    // if top rated active, fire top rated cards
-    // if upcoming active, fire upcoming cards
-    // if now playing active, fire now playing cards
-    // if search active, don't do anything (search form hardcoded)
+    // if popular active, fire popular cards and sidebar content
+    // if top rated active, fire top rated cards and sidebar content
+    // if upcoming active, fire upcoming cards and sidebar content
+    // if now playing active, fire now playing cards and sidebar content
+    // if search active, fire search cards and sidebar content
     // default is home page, so fire now playing carousel and popular + top rated home images
     switch ($('.nav-link.active').text()) {
         case 'Popular(current)':
-            popularApiCards();
+            apiCall(popularAjax, renderReleaseDateCard, 'popular', 'MMMM YYYY');
+            renderSidebarContent();
+            setInterval(renderSidebarContent, 8 * 1000);
             break;
 
         case 'Top Rated(current)':
-            topRatedApiCards();
+            apiCall(topRatedAjax, renderRatingCard, 'top-rated');
+            renderSidebarContent();
+            setInterval(renderSidebarContent, 8 * 1000);
             break;
 
         case 'Upcoming(current)':
-            upcomingApiCards();
+            apiCall(upcomingAjax, renderReleaseDateCard, 'upcoming', 'MMMM Do');
+            renderSidebarContent();
+            setInterval(renderSidebarContent, 8 * 1000);
             break;
 
         case 'Now Playing(current)':
-            nowPlayingApiCards();
+            apiCall(nowPlayingAjax, renderRatingCard, 'now-playing');
+            renderSidebarContent();
+            setInterval(renderSidebarContent, 8 * 1000);
             break;
 
         case 'Search(current)':
             searchApiCards();
+            renderSidebarContent();
+            setInterval(renderSidebarContent, 8 * 1000);
             break;
 
         default:
-            nowPlayingApiCarousel();
-            popularApiHomeImage();
-            topRatedApiHomeImage();
+            apiCall(nowPlayingAjax, renderCarousel);
+            apiCall(popularAjax, renderHomeImage, 'left');
+            apiCall(topRatedAjax, renderHomeImage, 'right');
             break;
     }
 
