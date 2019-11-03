@@ -9,7 +9,7 @@
 #footer {
     background: black;
     color: white;
-    padding:10px 0;
+    padding:15px 0;
     padding-left: 7px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 0.8rem;
@@ -75,7 +75,7 @@
         resize: none;
         margin-left: 3px;
       }
-      ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      ::placeholder { /* works on Chrome, Firefox, Opera, Safari 10.1+ */
         color: rgb(248,249,250);
         font-size: 11px;
       }
