@@ -15,7 +15,6 @@ $(document).ready(function() {
         url: "https://api.themoviedb.org/3/movie/popular?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
         method: "GET"
     }).then(function(response) {
-        console.log(response);
         // renderUpcoming(response);
         // renderUpcomingText(response);
         // renderCarousel(response);
@@ -27,7 +26,6 @@ $(document).ready(function() {
         url: "https://api.themoviedb.org/3/movie/top_rated?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&page=1",
         method: "GET"
     }).then(function(response) {
-        console.log(response);
         // renderUpcoming(response);
         // renderUpcomingText(response);
         // renderCarousel(response);
@@ -54,6 +52,8 @@ $(document).ready(function() {
             var contentCreation = $(".card-deck.upcoming").append(cardDiv);
             $(".cardNum" + i).attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg);
             $(".cardNum" + i).attr("alt", posterTitle + " image");
+            $(".cardNum" + i).attr("data-name", posterTitle);
+            $(".cardNum" + i).attr("data-release", posterRelease);
             $(".cardNum" + i).attr("data-id", [posterId]);
             $(".card img").on("click", movieClick);
         }
@@ -261,7 +261,6 @@ $(document).ready(function() {
             concatGenre = "";
 
             function genreGen() {
-                console.log("hello")
                 for (var i = 0; i < response.genres.length; i++) {
                     concatGenre += response.genres[i].name + " ";
                 }
@@ -277,12 +276,45 @@ $(document).ready(function() {
                  <p class="movieHeaders">Runtime:<span class="movieWindowInfo"> ${response.runtime} mins</span></p>
                  <p class="movieHeaders">Popularity:<span class="movieWindowInfo"> ${response.popularity}</span></p>
                  <hr>
-                 <p class="movieHeaders">Overview:<span class="movieWindowInfo" > ${response.overview}</span></p>
-                `)
+                 <p class="movieHeaders">Overview:<span class="movieWindowInfo" > ${response.overview}</span></p>`)
             $("#movieContent").append(createMovieImg, createMovieDiv);
 
+            $("#trailerModule").on("click", function(event) {
+                arg = srcImg.attr("data-name") + "+trailer"
+                search = arg.replace(/\s+/g, '+');
+
+                // Youtube api here
+                var key = "AIzaSyCWbq6hcw0U9aqEm-mcqV1feqRnWwDJuJo";
+                queryUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&key=AIzaSyCWbq6hcw0U9aqEm-mcqV1feqRnWwDJuJo&q="
+                $.ajax({
+                    url: queryUrl + search,
+                    method: "GET"
+                }).then(function(response) {
+                    console.log(response);
+                    $("#movieContent").html("");
+                    for (var i = 0; i < response.items.length; i++) {
+                        var videoLoc = response.items[i].id.videoId;
+                        var videoUrl = "";
+                        $("#movieContent").append(
+                            `<iframe class="trailerBox" width = "392"
+                        height = "220.5"
+                        src = "https://www.youtube.com/embed/${videoLoc}"
+                        frameborder = "0"
+                        allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen> </iframe>`
+                        )
+                    }
+
+                })
+            });
         });
     }
+
+
+
+
+
+
 
 
 });

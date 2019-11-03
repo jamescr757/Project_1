@@ -97,9 +97,9 @@ a.sidebar {
 }
 
 #search-card {
-    border: black 1.5px solid; 
-    border-bottom-left-radius: 0.75rem;   
-    border-bottom-right-radius: 0.75rem;   
+    border: black 1.5px solid;
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
 }
 
 #search-button {
@@ -111,7 +111,7 @@ a.sidebar {
 }
 
 #search-button:focus {
-    box-shadow: 0 0 0 0.1rem rgba(0,0,0,1);
+    box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 1);
 }
 
 #search-form {
@@ -142,4 +142,9 @@ a.sidebar {
 .movieWindowInfo {
     font-weight: normal;
     font-size: 16px;
+}
+
+.trailerBox {
+    margin: 20px;
+    margin-top: 40px;
 }
