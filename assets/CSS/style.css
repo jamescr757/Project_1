@@ -164,3 +164,11 @@ h5 {
     margin: 0 auto;
     margin-top: 20%;
 }
+
+#trailerModule,
+#infoModule,
+#trailerModule:hover,
+#infoModule:hover {
+    color: white;
+    cursor: pointer;
+}
