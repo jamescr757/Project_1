@@ -24,20 +24,25 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="html/popular.html">Popular</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="html/top-rated.html">Top Rated</a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="html/upcoming.html">Upcoming</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="html/popular.html" tabindex="-1">Popular</a>
+                    <a class="nav-link" href="html/now-playing.html">Now Playing</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="html/top-rated.html" tabindex="-1">Top Rated</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="html/search.html" tabindex="-1">Search</a>
+                    <a class="nav-link" href="html/search.html">Search</a>
                 </li>
             </ul>
 
@@ -45,14 +50,19 @@
     </nav>
 
 
-    <div class="container-fluid mb-4">
-        <div class="row">
-            <div class="col-md-1 col-lg-2 col-xl-3 col-1"></div>
-            <div class="col-md-8 col-lg-6 col-xl-4 col-10 mt-4">
+    <div class="container-fluid mb-4 mt-xl-0 mt-4">
+        <div class="row justify-content-center">
+            <div id="home-left-col" class="col-md-4 d-md-block d-none px-4">
+
+            </div>
+
+            <!-- display none until small screen  -->
+            <div class="col-1 d-md-none d-block"></div>
+
+            <div class="col-md-4 col-10 px-4">
                 <div class="bd-example">
                     <div id="carouselCaptions" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-
                         </ol>
                         <div class="carousel-inner">
 
@@ -70,24 +80,15 @@
                 </div>
             </div>
 
-            <div class="col-md-1 col-lg-2 col-xl-3 col-1"></div>
-            <nav class="col-md-2 d-none d-md-block sidebar index">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item pt-2 upcomingList">
-                            <!-- do we want this to be a clickable link? -->
-                            <a class="nav-link p-0 sidebar" href="upcoming.html">Upcoming</a>
-                        </li>
+            <!-- display none until small screen  -->
+            <div class="col-1 d-md-none d-block"></div>
 
-                    </ul>
-                </div>
-            </nav>
+            <div id="home-right-col" class="col-md-4 d-md-block d-none px-4">
 
+            </div>
 
         </div>
     </div>
-
-
 
 
 

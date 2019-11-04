@@ -23,21 +23,27 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+
                 <li class="nav-item">
-                    <a class="nav-link" href="upcoming.html">Upcoming<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="popular.html">Popular</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link active" href="top-rated.html">Top Rated<span class="sr-only">(current)</span></a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="upcoming.html">Upcoming</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="popular.html" tabindex="-1">Popular</a>
+                    <a class="nav-link" href="now-playing.html">Now Playing</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="top-rated.html" tabindex="-1">Top Rated<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="search.html">Search</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="search.html" tabindex="-1">Search</a>
-                </li>
+                
             </ul>
 
         </div>
@@ -46,18 +52,24 @@
 
     <div class="container-fluid mb-4">
         <div class="row">
-            <div class="col-md-10 col-12">
+            <!-- display none until small screen  -->
+            <div class="col d-md-none d-block"></div>
+
+            <div class="col-md-10 col-auto">
                 <div class="card-deck top-rated">
 
                 </div>
             </div>
 
+            <!-- display none until small screen  -->
+            <div class="col d-md-none d-block"></div>
+
             <nav class="col-md-2 d-none d-md-block sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
-                        <li class="nav-item pt-2 upcomingList">
+                        <li class="nav-item pt-2 sideList">
                             <!-- do we want this to be a clickable link? -->
-                            <a class="nav-link p-0 sidebar" href="#">Top Rated</a>
+                            <a class="nav-link p-0 sidebar" href="#"></a>
                         </li>
 
                     </ul>
