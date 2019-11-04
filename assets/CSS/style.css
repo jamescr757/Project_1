@@ -67,6 +67,12 @@ a.sidebar {
     width: 100%;
 }
 
+#home-right-col,
+#home-left-col, #carousel-col {
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+}
+
 .imageLayout {
     width: 250px;
     height: 460px;

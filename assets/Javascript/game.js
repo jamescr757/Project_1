@@ -7,6 +7,9 @@ $(document).ready(function() {
     var posterId;
     var cardDiv;
 
+    // global time delay variable for new sidebar content 
+    var timeDelay = 8 * 1000; 
+
     // global variables for js frame window
     var clickCounter = 0;
     var windowOpen = false;
@@ -467,31 +470,31 @@ $(document).ready(function() {
         case 'Popular(current)':
             apiCall(popularAjax, renderReleaseDateCard, 'popular', 'MMMM YYYY');
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         case 'Top Rated(current)':
             apiCall(topRatedAjax, renderRatingCard, 'top-rated');
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         case 'Upcoming(current)':
             apiCall(upcomingAjax, renderReleaseDateCard, 'upcoming', 'MMMM Do');
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         case 'Now Playing(current)':
             apiCall(nowPlayingAjax, renderRatingCard, 'now-playing');
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         case 'Search(current)':
             searchApiCards();
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         default:
