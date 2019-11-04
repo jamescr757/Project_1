@@ -32,11 +32,12 @@
     form {                                                                                                                                                                                                         
         border: 1px solid #ccc;
   }
-    h4{
+    h5{
         text-align: center;
     }   
-    .chat-container {
-        
+    #chat-container {
+        display: none;
+        bottom: 150px;
         margin-top: 15px;
         border: solid 1px black;                                                                   
         position: absolute;
@@ -79,6 +80,15 @@
         color: rgb(248,249,250);
         font-size: 11px;
       }
+    .chat-launcher {
+        position: absolute;
+        bottom: 60px;
+        max-width: 70%;
+        height: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
       
 
 

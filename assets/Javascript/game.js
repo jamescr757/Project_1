@@ -106,7 +106,7 @@ $(document).ready(function() {
                     windowOpen = false;
                 });
             }
-        }
+    }
         clickCounter++;
     }
     var firebaseConfig = {
@@ -133,7 +133,7 @@ $(document).ready(function() {
           var text = $('#messageInput').val();
           myDataRef.push({name: name, text: text});
           $('#messageInput').val('');
-        }
+        }       
       });
       myDataRef.on('child_added', function(snapshot) {
         var message = snapshot.val();
@@ -143,6 +143,18 @@ $(document).ready(function() {
         $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
         $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
       };
-
+// Toggles the chat window
+      var showChat = false;
+      $( ".chat-launcher" ).click(function() {
+            if (!showChat) {    
+                $('#chat-container').show();
+                showChat = true;
+            }
+            else {
+                $('#chat-container').hide();
+                showChat = false;
+            }
+        });
+      
 
 });

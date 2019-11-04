@@ -61,7 +61,7 @@
 
                 </div>
             </div>
-
+<!-- Sidebar DIV -->
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
@@ -70,9 +70,9 @@
                         </li>
                     </ul>
                 </div>
-                <!-- Chat form -->
-                <div class="chat-container">
-                    <h4>Let's chat!</h4>
+<!-- Chat form container -->
+                <div id="chat-container">
+                    <h5>The Movie Source chat!</h5>
                     <form>
                         <div class="row">
                             <div class="col-md">
@@ -88,11 +88,15 @@
                         </div>
                         <div class="row">
                             <div class="col-md">
-                                    <textarea id='messageInput' placeholder='enter your text' rows="3"></textarea>
+                                    <textarea id='messageInput' placeholder='enter your text' rows="3" required></textarea>
                             </div>
                         </div>
                     </form>
-                 </div>   
+                </div>
+<!-- Chat launcher -->      
+                <a href="#">
+                    <img class="chat-launcher" border="0" alt="Let's Chat" src="assets/images/chat_icon.png">
+                </a> 
             </nav>
 <!-- Footer -->
             <div class="row justify-content-md-center">
