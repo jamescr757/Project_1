@@ -118,8 +118,15 @@ $(document).ready(function() {
     // max iterations 10
     // render error screen if user search gets no results
     function renderSearchCards(response) {
+        console.log(response);
 
-        if (response.results.length <= 10) {
+        if (response.results.length === 0) {
+            var numberOfCards = 0;
+            $('.card-deck.search-cards').append(`
+            <h5 class='text-center text-primary'>No results. Go back or click 'Search' above to try again.</h5>
+            `);
+        }
+        else if (response.results.length <= 10) {
             var numberOfCards = response.results.length;
         } else {
             var numberOfCards = 10;
@@ -127,11 +134,11 @@ $(document).ready(function() {
 
         for (var i = 0; i < numberOfCards; i++) {
             assignResponseData(response, i);
-            // format release date for specific page
-            posterRelease = moment(posterRelease).format('YYYY');
 
-            // only render movie card if there is an image
-            if (posterImg) {
+            // only render movie card if there is an image and a date
+            if (posterImg && posterRelease) {
+                // format release date for specific page
+                posterRelease = moment(posterRelease).format('YYYY');
                 renderMovieCard('search-cards', posterRelease);
             }
         }
