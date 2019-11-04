@@ -7,6 +7,9 @@ $(document).ready(function() {
     var posterId;
     var cardDiv;
 
+    // global time delay variable for new sidebar content 
+    var timeDelay = 8 * 1000; 
+
     // global variables for js frame window
     var clickCounter = 0;
     var windowOpen = false;
@@ -78,9 +81,9 @@ $(document).ready(function() {
                     <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" 
                         class="card-img-top" 
                         alt="${posterTitle} image"
-                        data-name=${posterTitle}
-                        data-release=${posterRelease}
-                        data-id=${posterId}
+                        data-name= "${posterTitle}"
+                        data-release="${posterRelease}"
+                        data-id="${posterId}"
                         />
                     <div class="card-body">
                         <p class="card-text"><b>${posterTitle}</b></p>
@@ -90,7 +93,6 @@ $(document).ready(function() {
             </div>`;
 
         $(`.card-deck.${pageName}`).append(cardDiv);
-
         $(".card img").on("click", movieClick);
     }
 
@@ -118,8 +120,15 @@ $(document).ready(function() {
     // max iterations 10
     // render error screen if user search gets no results
     function renderSearchCards(response) {
+        console.log(response);
 
-        if (response.results.length <= 10) {
+        if (response.results.length === 0) {
+            var numberOfCards = 0;
+            $('.card-deck.search-cards').append(`
+            <h5 class='text-center text-primary'>No results. Go back or click 'Search' above to try again.</h5>
+            `);
+        }
+        else if (response.results.length <= 10) {
             var numberOfCards = response.results.length;
         } else {
             var numberOfCards = 10;
@@ -127,11 +136,11 @@ $(document).ready(function() {
 
         for (var i = 0; i < numberOfCards; i++) {
             assignResponseData(response, i);
-            // format release date for specific page
-            posterRelease = moment(posterRelease).format('YYYY');
 
-            // only render movie card if there is an image
-            if (posterImg) {
+            // only render movie card if there is an image and a date
+            if (posterImg && posterRelease) {
+                // format release date for specific page
+                posterRelease = moment(posterRelease).format('YYYY');
                 renderMovieCard('search-cards', posterRelease);
             }
         }
@@ -179,17 +188,17 @@ $(document).ready(function() {
                 apiCall(popularAjax, renderSidebarReleaseDateText, "Popular", "MMMM YYYY", 'popular.html');
                 break;
 
-                // top rated was picked
+            // top rated was picked
             case 1:
                 apiCall(topRatedAjax, renderSidebarRatingText, "Top Rated", 'top-rated.html');
                 break;
 
-                // now playing was picked
+            // now playing was picked
             case 2:
                 apiCall(nowPlayingAjax, renderSidebarRatingText, "Now Playing", 'now-playing.html');
                 break;
 
-                // upcoming was picked
+            // upcoming was picked
             case 3:
                 apiCall(upcomingAjax, renderSidebarReleaseDateText, "Upcoming", "MMMM Do", 'upcoming.html');
                 break;
@@ -294,7 +303,6 @@ $(document).ready(function() {
 
     function movieClick(response) {
         var clickInfo = $(this);
-
         // viewport width and height in px
         var viewportWidth = $(window).width();
         var viewportHeight = $(window).height();
@@ -327,10 +335,10 @@ $(document).ready(function() {
                         },
                         titleBar: {
                             color: 'white',
-                            background: '#4784d4',
+                            background: 'rgba(0,0,0,0.8)',
                             leftMargin: 40,
                             height: 30,
-                            fontSize: 14,
+                            fontSize: 20,
                             buttonWidth: 60,
                             buttonHeight: 30,
                             buttonColor: 'white',
@@ -343,17 +351,17 @@ $(document).ready(function() {
                     },
 
                     style: {
-                        backgroundColor: 'rgba(220,220,220,0.6)',
+                        backgroundColor: 'rgba(220,220,220,0.8)',
                         overflow: 'hidden',
                         width: '100%',
                     },
                     html: `
                         <ul class="nav nav-pills" style="background-color: rgba(0,0,0,.7)" >
                         <li class="nav-item movieButton">
-                        <a class="nav-link" id="infoModule" href="#">Info</a>
+                        <a class="nav-link" id="infoModule">Info</a>
                         </li>
                         <li class="nav-item movieButton">
-                        <a class="nav-link" id="trailerModule" href="#">Trailer</a>
+                        <a class="nav-link" id="trailerModule">Trailer</a>
                         </li>
                         </ul>
                         
@@ -365,6 +373,12 @@ $(document).ready(function() {
                         </div>`,
                 }).show();
                 loadInfo(clickInfo);
+                youtubeApi(clickInfo);
+
+                $("#infoModule").on("click", function() {
+                    $("#movieContent").html("");
+                    loadInfo(clickInfo);
+                });
                 windowOpen = true
 
                 window.onclick = function(event) {
@@ -383,13 +397,13 @@ $(document).ready(function() {
 
 
     function loadInfo(arg) {
+        $("#movieContent").html("");
         var srcImg = arg;
         var movieId = arg.attr("data-id");
         $.ajax({
             url: `https://api.themoviedb.org/3/movie/${movieId}?api_key=b4b1a288471f47d8977ade0fc9b9be70&language=en-US&`,
             method: "GET"
         }).then(function(response) {
-
             var posterImg = response.poster_path;
             var createMovieImg = $("<img>").attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg)
             createMovieImg.addClass("moviePoster")
@@ -409,6 +423,7 @@ $(document).ready(function() {
             createMovieDiv.html(
                 `<p class="movieHeaders">Movie Title:<span class="movieWindowInfo"> ${response.title}</span></p>
                  <p class="movieHeaders">Release Date:<span class="movieWindowInfo"> ${response.release_date}</span></p>
+                 <p class="movieHeaders">Rating:<span class="movieWindowInfo"> ${response.vote_average}</span></p>
                  <p class="movieHeaders">Genre:<span class="movieWindowInfo"> ${concatGenre} </span></p>
                  <p class="movieHeaders">Status:<span class="movieWindowInfo"> ${response.status}</span></p>
                  <p class="movieHeaders">Runtime:<span class="movieWindowInfo"> ${response.runtime} mins</span></p>
@@ -417,37 +432,45 @@ $(document).ready(function() {
                  <p class="movieHeaders">Overview:<span class="movieWindowInfo" > ${response.overview}</span></p>`)
             $("#movieContent").append(createMovieImg, createMovieDiv);
 
-            $("#trailerModule").on("click", function(event) {
-                arg = srcImg.attr("data-name") + "+trailer"
-                search = arg.replace(/\s+/g, '+');
 
-                // Youtube api here
-                var key = "AIzaSyCWbq6hcw0U9aqEm-mcqV1feqRnWwDJuJo";
-                queryUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&key=AIzaSyCWbq6hcw0U9aqEm-mcqV1feqRnWwDJuJo&q="
-                $.ajax({
-                    url: queryUrl + search,
-                    method: "GET"
-                }).then(function(response) {
-                    console.log(response);
-                    $("#movieContent").html("");
-                    for (var i = 0; i < response.items.length; i++) {
-                        var videoLoc = response.items[i].id.videoId;
-                        var videoUrl = "";
-                        $("#movieContent").append(
-                            `<iframe class="trailerBox" width = "392"
+
+        });
+    }
+
+    function youtubeApi(clickInfo) {
+        console.log(clickInfo);
+        arg2 = clickInfo.attr("data-name") + "+trailer"
+        search = arg2.replace(/\s+/g, '+');
+
+        // Youtube api here
+        queryUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&key=AIzaSyCWbq6hcw0U9aqEm-mcqV1feqRnWwDJuJo&q="
+        $.ajax({
+            url: queryUrl + search,
+            method: "GET"
+        }).then(function(response) {
+
+            var vidUrl = [];
+            for (var i = 0; i < response.items.length; i++) {
+                var videoLoc = response.items[i].id.videoId;
+                vidUrl.push(videoLoc);
+            };
+
+            $("#trailerModule").on("click", function(event) {
+                $("#movieContent").html("");
+                vidUrl.forEach(function(url) {
+                    $("#movieContent").append(
+                        `<iframe class="trailerBox" width = "392"
                         height = "220.5"
-                        src = "https://www.youtube.com/embed/${videoLoc}"
+                        src = "https://www.youtube.com/embed/${url}"
                         frameborder = "0"
                         allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen> </iframe>`
-                        )
-
-                    };
-
+                    )
                 })
-            });
+            })
         });
     }
+
 
     // based on which page is active call the necessary api functions
     // if popular active, fire popular cards and sidebar content
@@ -460,31 +483,31 @@ $(document).ready(function() {
         case 'Popular(current)':
             apiCall(popularAjax, renderReleaseDateCard, 'popular', 'MMMM YYYY');
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         case 'Top Rated(current)':
             apiCall(topRatedAjax, renderRatingCard, 'top-rated');
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         case 'Upcoming(current)':
             apiCall(upcomingAjax, renderReleaseDateCard, 'upcoming', 'MMMM Do');
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         case 'Now Playing(current)':
             apiCall(nowPlayingAjax, renderRatingCard, 'now-playing');
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         case 'Search(current)':
             searchApiCards();
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         default:

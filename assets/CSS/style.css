@@ -31,6 +31,29 @@ a.nav-link {
     color: white;
 }
 
+.navbar-brand {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+ul li {
+    padding: 0 20px 0 20px;
+    font-weight: 600;
+}
+
+.menuItem:hover li a {
+    transform: scale(1.5);
+    opacity: 1;
+    filter: blur(3px);
+    color: white;
+}
+
+.menuItem li a:hover {
+    transform: scale(1.5);
+    opacity: 1;
+    filter: blur(0px);
+}
+
 .card img {
     width: 100%;
     border-bottom: white 1px solid;
@@ -38,7 +61,6 @@ a.nav-link {
 
 a.sidebar {
     font-size: 1.5rem;
-    /* text-decoration: underline white; */
     margin-bottom: -0.5rem;
     border-bottom: white 0.5px solid;
 }
@@ -65,6 +87,18 @@ a.sidebar {
 #home-left-col img {
     height: auto;
     width: 100%;
+}
+
+#home-right-col,
+#home-left-col {
+    padding-right: 5rem;
+    padding-left: 5rem;
+    margin-top: 2.5rem;
+}
+
+#carousel-col {
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
 }
 
 .imageLayout {
@@ -163,4 +197,12 @@ p.card-text {
 h5 {
     margin: 0 auto;
     margin-top: 20%;
+}
+
+#trailerModule,
+#infoModule,
+#trailerModule:hover,
+#infoModule:hover {
+    color: white;
+    cursor: pointer;
 }
