@@ -74,13 +74,14 @@ $(document).ready(function() {
     function renderMovieCard(pageName, subInfo) {
         cardDiv = `
             <div>
-                <div class="card m-3 imageLayout">
+                <div class="card m-3 imageLayout"
+                data-name= "${posterTitle}"
+                data-release="${posterRelease}"
+                data-id="${posterId}">
                     <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" 
                         class="card-img-top" 
                         alt="${posterTitle} image"
-                        data-name= "${posterTitle}"
-                        data-release="${posterRelease}"
-                        data-id="${posterId}"
+                        
                         />
                     <div class="card-body">
                         <p class="card-text"><b>${posterTitle}</b></p>
@@ -90,7 +91,7 @@ $(document).ready(function() {
             </div>`;
 
         $(`.card-deck.${pageName}`).append(cardDiv);
-        $(".card img").on("click", movieClick);
+        $(".card").on("click", movieClick);
     }
 
     // passed test
@@ -292,6 +293,8 @@ $(document).ready(function() {
     }
 
     function movieClick(response) {
+        response.stopImmediatePropagation();
+
         var clickInfo = $(this);
         // viewport width and height in px
         var viewportWidth = $(window).width();
@@ -304,49 +307,47 @@ $(document).ready(function() {
         var frameHeight = viewportHeight - yMargin * 2;
 
 
-        if (clickCounter % 10 === 0) {
+        if (!windowOpen) {
 
-            if (!windowOpen) {
-
-                const jSFrame = new JSFrame();
-                //Style from preset
-                const frame01 = jSFrame.create({
-                    title: clickInfo.attr("data-name"),
-                    left: xMargin,
-                    top: yMargin,
-                    width: frameWidth,
-                    height: frameHeight,
-                    appearanceName: 'material',
-                    appearanceParam: {
-                        border: {
-                            shadow: '2px 2px 10px  rgba(0, 0, 0, 0.5)',
-                            width: 0,
-                            radius: 6,
-                        },
-                        titleBar: {
-                            color: 'white',
-                            background: 'rgba(0,0,0,0.8)',
-                            leftMargin: 40,
-                            height: 30,
-                            fontSize: 20,
-                            buttonWidth: 60,
-                            buttonHeight: 30,
-                            buttonColor: 'white',
-                            buttons: [{
-                                fa: 'fas fa-times',
-                                name: 'closeButton',
-                                visible: true
-                            }, ],
-                        }
+            const jSFrame = new JSFrame();
+            //Style from preset
+            const frame01 = jSFrame.create({
+                title: clickInfo.attr("data-name"),
+                left: xMargin,
+                top: yMargin,
+                width: frameWidth,
+                height: frameHeight,
+                appearanceName: 'material',
+                appearanceParam: {
+                    border: {
+                        shadow: '2px 2px 10px  rgba(0, 0, 0, 0.5)',
+                        width: 0,
+                        radius: 6,
                     },
+                    titleBar: {
+                        color: 'white',
+                        background: 'rgba(0,0,0,0.8)',
+                        leftMargin: 40,
+                        height: 30,
+                        fontSize: 20,
+                        buttonWidth: 60,
+                        buttonHeight: 30,
+                        buttonColor: 'white',
+                        buttons: [{
+                            fa: 'fas fa-times',
+                            name: 'closeButton',
+                            visible: true
+                        }, ],
+                    }
+                },
 
-                    style: {
-                        backgroundColor: 'rgba(220,220,220,0.8)',
-                        overflow: 'hidden',
-                        width: '100%',
-                    },
-                    html: `
-                        <ul class="nav nav-pills" style="background-color: rgba(0,0,0,.7)" >
+                style: {
+                    backgroundColor: 'rgba(220,220,220,0.8)',
+                    overflow: 'hidden',
+                    width: '100%',
+                },
+                html: `
+                        <ul class="nav nav-pills menuItem" style="background-color: rgba(0,0,0,.7)" >
                         <li class="nav-item movieButton">
                         <a class="nav-link" id="infoModule">Info</a>
                         </li>
@@ -361,28 +362,27 @@ $(document).ready(function() {
                         </div>
                         </div>
                         </div>`,
-                }).show();
+            }).show();
+            loadInfo(clickInfo);
+            youtubeApi(clickInfo);
+
+            $("#infoModule").on("click", function() {
+                $("#movieContent").html("");
                 loadInfo(clickInfo);
-                youtubeApi(clickInfo);
+            });
+            windowOpen = true
 
-                $("#infoModule").on("click", function() {
-                    $("#movieContent").html("");
-                    loadInfo(clickInfo);
-                });
-                windowOpen = true
-
-                window.onclick = function(event) {
-                    if (event.path[0].className === "jsframe-modal-window-background") {
-                        frame01.closeFrame();
-                    }
+            window.onclick = function(event) {
+                if (event.path[0].className === "jsframe-modal-window-background") {
+                    frame01.closeFrame();
                 }
-                frame01.showModal(_frame => {
-                    //Callback when modal window is closed.
-                    windowOpen = false;
-                });
             }
+            frame01.showModal(_frame => {
+                //Callback when modal window is closed.
+                windowOpen = false;
+            });
         }
-        clickCounter++;
+
     }
 
 
@@ -428,16 +428,18 @@ $(document).ready(function() {
     }
 
     function youtubeApi(clickInfo) {
-        console.log(clickInfo);
         arg2 = clickInfo.attr("data-name") + "+trailer"
         search = arg2.replace(/\s+/g, '+');
-
-        // Youtube api here
-        queryUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&key=AIzaSyCWbq6hcw0U9aqEm-mcqV1feqRnWwDJuJo&q="
+        console.log(clickInfo)
+            // Youtube api here
+        var apiKey = "AIzaSyA-SlSXCRy8gCzjVy3gghUVaOWswF3Juto"
+        queryUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&key=${apiKey}&q=`;
+        console.log(queryUrl)
         $.ajax({
             url: queryUrl + search,
             method: "GET"
         }).then(function(response) {
+            console.log("here")
 
             var vidUrl = [];
             for (var i = 0; i < response.items.length; i++) {
