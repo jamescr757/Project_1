@@ -31,6 +31,29 @@ a.nav-link {
     color: white;
 }
 
+.navbar-brand {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+ul li {
+    padding: 0 20px 0 20px;
+    font-weight: 600;
+}
+
+.menuItem:hover li a {
+    transform: scale(1.5);
+    opacity: 1;
+    filter: blur(3px);
+    color: white;
+}
+
+.menuItem li a:hover {
+    transform: scale(1.5);
+    opacity: 1;
+    filter: blur(0px);
+}
+
 .card img {
     width: 100%;
     border-bottom: white 1px solid;
