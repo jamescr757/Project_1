@@ -38,7 +38,6 @@ a.nav-link {
 
 a.sidebar {
     font-size: 1.5rem;
-    /* text-decoration: underline white; */
     margin-bottom: -0.5rem;
     border-bottom: white 0.5px solid;
 }
@@ -68,7 +67,13 @@ a.sidebar {
 }
 
 #home-right-col,
-#home-left-col, #carousel-col {
+#home-left-col {
+    padding-right: 5rem;
+    padding-left: 5rem;
+    margin-top: 2.5rem;
+}
+
+#carousel-col {
     padding-right: 2.5rem;
     padding-left: 2.5rem;
 }

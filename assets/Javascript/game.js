@@ -189,17 +189,17 @@ $(document).ready(function() {
                 apiCall(popularAjax, renderSidebarReleaseDateText, "Popular", "MMMM YYYY", 'popular.html');
                 break;
 
-                // top rated was picked
+            // top rated was picked
             case 1:
                 apiCall(topRatedAjax, renderSidebarRatingText, "Top Rated", 'top-rated.html');
                 break;
 
-                // now playing was picked
+            // now playing was picked
             case 2:
                 apiCall(nowPlayingAjax, renderSidebarRatingText, "Now Playing", 'now-playing.html');
                 break;
 
-                // upcoming was picked
+            // upcoming was picked
             case 3:
                 apiCall(upcomingAjax, renderSidebarReleaseDateText, "Upcoming", "MMMM Do", 'upcoming.html');
                 break;
