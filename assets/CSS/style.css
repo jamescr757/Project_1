@@ -1,9 +1,24 @@
-#mainContent {
-    border: 2px solid black;
+html {
+    font-size: 16px;
 }
 
-#rightColumn {
-    border: 2px solid black;
+#indexBody {
+    background-color: black;
+}
+
+#footer.index {
+    border-top: white 1px solid;
+}
+
+.navbar.index {
+    border-bottom: white 1px solid;
+}
+
+#footer,
+.imageLayout,
+.sidebar {
+    background-color: black;
+    color: white;
 }
 
 #footer {
@@ -15,12 +30,55 @@
     font-size: 0.8rem;
 }
 
+nav.navbar {
+    background-color: black;
+}
+
+.navbar-brand,
+.navbar-brand:hover,
+a.nav-link {
+    color: white;
+}
+
 .card img {
+    width: 100%;
+    border-bottom: white 1px solid;
+}
+
+a.sidebar {
+    font-size: 1.5rem;
+    /* text-decoration: underline white; */
+    margin-bottom: -0.5rem;
+    border-bottom: white 0.5px solid;
+}
+
+.poster-release {
+    color: silver;
+    font-style: italic;
+}
+
+.carousel-caption p {
+    font-size: 1.5rem;
+    margin-bottom: -3%;
+}
+
+.card img:hover {
+    cursor: pointer;
+}
+
+.carousel-item img {
+    height: auto;
+}
+
+#home-right-col img,
+#home-left-col img {
+    height: auto;
     width: 100%;
 }
 
 .imageLayout {
-    width: 185px;
+    width: 250px;
+    height: 460px;
     text-align: center;
 }
 
@@ -28,17 +86,18 @@
     font-size: 15px;
 }
 
-    <!-- CHat form styling  
+/* CHat form styling starts here */
     form {                                                                                                                                                                                                         
         border: 1px solid #ccc;
   }
     h5{
         text-align: center;
+        color: black;
     }   
-    #chat-container {
+    #chat-container {   
         display: none;
-        bottom: 150px;
-        margin-top: 15px;
+        bottom: 25px;
+        margin-top: 10px;
         border: solid 1px black;                                                                   
         position: absolute;
         width: 100%;
@@ -54,9 +113,11 @@
     .msg-wrapper em{
         font-size: 10px;
         font-weight: bold;
+        color: black;
     }
     .msg-wrapper div{
         font-size: 10px;
+        color: black;
     }
     input[type=text] {
         width: 95%;
@@ -77,22 +138,23 @@
         margin-left: 3px;
       }
       ::placeholder { /* works on Chrome, Firefox, Opera, Safari 10.1+ */
-        color: rgb(248,249,250);
-        font-size: 11px;
+        color: darkgrey;
+        font-size: 12px;
       }
+
     .chat-launcher {
-        position: absolute;
-        bottom: 60px;
-        max-width: 60%;
+        position: fixed;
+        bottom: 50px;
+        right: 250px;
+        max-width: 100%;
         height: auto;
         display: block;
-        margin-left: auto;
-        margin-right: auto;
+        z-index: 9;
+        opacity: 0.5;
     }
     .chat-launcher :hover {
         cursor: pointer;
     }
-      
-
+/* CHat form styling ends here */
 
   
