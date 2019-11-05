@@ -356,9 +356,9 @@ $(document).ready(function() {
                     width: '100%',
                 },
                 html: `
-                        <ul class="nav nav-pills menuItem" style="background-color: rgba(0,0,0,.7)" >
+                        <ul class="nav nav-pills" style="background-color: rgba(0,0,0,.7)" >
                         <li class="nav-item movieButton">
-                        <a class="nav-link" id="infoModule">Info</a>
+                        <a class="nav-link active" id="infoModule">Info</a>
                         </li>
                         <li class="nav-item movieButton">
                         <a class="nav-link" id="trailerModule">Trailer</a>
@@ -376,6 +376,8 @@ $(document).ready(function() {
             youtubeApi(clickInfo);
 
             $("#infoModule").on("click", function() {
+                $("#trailerModule").removeClass("active");
+                $("#infoModule").addClass("active");
                 $("#movieContent").html("");
                 loadInfo(clickInfo);
             });
@@ -457,6 +459,8 @@ $(document).ready(function() {
             };
 
             $("#trailerModule").on("click", function(event) {
+                $("#infoModule").removeClass("active");
+                $("#trailerModule").addClass("active")
                 $("#movieContent").html("");
                 $("#movieContent").append(`<div class="row justify-content-around" id="trailersHere"></div>`);
                 vidUrl.forEach(function(url) {
@@ -471,6 +475,7 @@ $(document).ready(function() {
                 })
             })
         });
+
     }
 
 
