@@ -458,8 +458,9 @@ $(document).ready(function() {
 
             $("#trailerModule").on("click", function(event) {
                 $("#movieContent").html("");
+                $("#movieContent").append(`<div class="row justify-content-around" id="trailersHere"></div>`);
                 vidUrl.forEach(function(url) {
-                    $("#movieContent").append(
+                    $("#trailersHere").append(
                         `<iframe class="trailerBox" width = "392"
                         height = "220.5"
                         src = "https://www.youtube.com/embed/${url}"
