@@ -94,7 +94,7 @@ $(document).ready(function() {
             </div>`;
 
         $(`.card-deck.${pageName}`).append(cardDiv);
-        $(".card").on("click", movieClick);
+        $(".imageLayout").on("click", movieClick);
     }
 
     // passed test
@@ -441,7 +441,7 @@ $(document).ready(function() {
     function youtubeApi(clickInfo) {
         arg2 = clickInfo.attr("data-name") + "+trailer"
         search = arg2.replace(/\s+/g, '+');
-            // Youtube api here
+        // Youtube api here
         var apiKey = "AIzaSyA-SlSXCRy8gCzjVy3gghUVaOWswF3Juto"
         queryUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&key=${apiKey}&q=`;
         console.log(queryUrl)
@@ -579,8 +579,7 @@ $(document).ready(function() {
             var msgArea = document.getElementById('messagesDiv');
             msgArea.scrollTop = msgArea.scrollHeight;
             console.log(msgArea);
-        }
-        else {
+        } else {
             $('#chat-container').hide();
             showChat = false;
         }
@@ -589,7 +588,7 @@ $(document).ready(function() {
     // clears chat database
     // myDataRef.remove();
 
-// Chatbox code ends here
+    // Chatbox code ends here
 
 
 });
