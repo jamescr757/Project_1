@@ -107,7 +107,8 @@ a.sidebar {
 #home-left-col img {
     height: auto;
     width: 100%;
-    border: white solid 1px;
+    box-shadow: 5px 5px 15px #000;
+    border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 #home-right-col,
@@ -115,6 +116,30 @@ a.sidebar {
     padding-right: 5rem;
     padding-left: 5rem;
     margin-top: 2.5rem;
+}
+
+#home-left-col:before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 80px;
+    right: 80px;
+    bottom: 75px;
+    background: #ffffff;
+    transform: skew(2deg, 2deg);
+    z-index: -1;
+}
+
+#home-right-col:before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 80px;
+    right: 80px;
+    bottom: 75px;
+    background: #ffffff;
+    transform: skew(-2deg, -2deg);
+    z-index: -1;
 }
 
 #carousel-col {
