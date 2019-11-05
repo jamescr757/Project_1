@@ -550,9 +550,11 @@ $(document).ready(function() {
     $('#messageInput').keypress(function(e) {
         if (e.keyCode == 13) {
             var name = $('#nameInput').val();
-            var text = $('#messageInput').val();
-            myDataRef.push({ name: name, text: text });
-            $('#messageInput').val('');
+            if (name) {
+                var text = $('#messageInput').val();
+                myDataRef.push({ name: name, text: text });
+                $('#messageInput').val('');
+            }
         }
     });
 
@@ -562,8 +564,12 @@ $(document).ready(function() {
     });
 
     function displayChatMessage(name, text) {
-        $('<div/>').text(text).prepend($('<em/>').text(name + ': ')).appendTo($('#messagesDiv'));
-        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+        if (name) {
+            $('<div/>').text(text).prepend($('<em/>').text(name + ': ')).appendTo($('#messagesDiv'));
+            $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+        } else {
+            event.preventDefault();
+        }
     };
 
     // Toggles the chat window
