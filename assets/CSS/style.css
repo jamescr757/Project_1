@@ -199,6 +199,10 @@ p.card-text {
     border-bottom-right-radius: 0.75rem;
 }
 
+#search-card form {
+    padding: 0.5rem;
+}
+
 #search-button {
     background-color: black;
 }
@@ -308,7 +312,7 @@ h6 {
     color: black;
 }
 
-input[type=text] {
+#nameInput {
     width: 97%;
     padding: 2px;
     margin-left: 3px;
