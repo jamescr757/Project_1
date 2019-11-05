@@ -140,17 +140,17 @@ form {
     border: 1px solid #ccc;
 }
 
-h5 {
+h6 {
     text-align: center;
     color: black;
+    padding-top: 0px;
 }
 
 #chat-container {
     display: none;
-    bottom: 25px;
-    margin-top: 10px;
+    /* top: 55px; */
     border: solid 1px black;
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
     right: 0;
     background-color: rgb(248, 249, 250);
@@ -203,15 +203,14 @@ textarea {
 .chat-launcher {
     position: fixed;
     bottom: 50px;
-    right: 250px;
+    right: 17%;
     max-width: 100%;
     height: auto;
     display: block;
-    z-index: 9;
     opacity: 0.5;
 }
 
-.chat-launcher :hover {
+.chat-launcher {
     cursor: pointer;
 }
 
