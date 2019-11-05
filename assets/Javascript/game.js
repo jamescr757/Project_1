@@ -520,6 +520,59 @@ $(document).ready(function() {
     // register click event for search button on search form
     $('#search-button').on('click', searchClick);
 
+// Chat box code starts here
+
+var firebaseConfig = {
+    apiKey: "AIzaSyByy4qbn8q_ok3HqY9L9yQawaHfa9w-JUo",
+    authDomain: "themoviesource-ec7f8.firebaseapp.com",
+    databaseURL: "https://themoviesource-ec7f8.firebaseio.com",
+    projectId: "themoviesource-ec7f8",
+    storageBucket: "themoviesource-ec7f8.appspot.com",
+    messagingSenderId: "404075692642",
+    appId: "1:404075692642:web:3bac80c1fcde772b70c73b",
+    measurementId: "G-J0187NSR5D"
+  };
+  
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  var database = firebase.database();
+
+  var myDataRef = new firebase.database().ref();
+  $('#messageInput').keypress(function (e) {
+    if (e.keyCode == 13) {
+      var name = $('#nameInput').val();
+      var text = $('#messageInput').val();
+      myDataRef.push({name: name, text: text});
+      $('#messageInput').val('');
+    }       
+  });
+
+  myDataRef.on('child_added', function(snapshot) {
+    var message = snapshot.val();
+    displayChatMessage(message.name, message.text);
+  });
+  
+  function displayChatMessage(name, text) {
+    $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+    $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+  };
+
+  // Toggles the chat window
+  var showChat = false;
+  $( ".chat-launcher" ).click(function() {
+        if (!showChat) {    
+            $('#chat-container').show();
+            showChat = true;
+        }
+        else {
+            $('#chat-container').hide();
+            showChat = false;
+        }
+    });
+
+// Chatbox code ends here
 
 
 
