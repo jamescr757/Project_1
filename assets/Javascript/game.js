@@ -441,7 +441,6 @@ $(document).ready(function() {
     function youtubeApi(clickInfo) {
         arg2 = clickInfo.attr("data-name") + "+trailer"
         search = arg2.replace(/\s+/g, '+');
-        console.log(clickInfo)
             // Youtube api here
         var apiKey = "AIzaSyA-SlSXCRy8gCzjVy3gghUVaOWswF3Juto"
         queryUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&key=${apiKey}&q=`;
@@ -450,7 +449,6 @@ $(document).ready(function() {
             url: queryUrl + search,
             method: "GET"
         }).then(function(response) {
-            console.log("here")
 
             var vidUrl = [];
             for (var i = 0; i < response.items.length; i++) {
