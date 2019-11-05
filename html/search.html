@@ -86,42 +86,44 @@
             <div class="col d-md-none d-block"></div>
 
             <nav class="col-md-2 d-none d-md-block sidebar">
-<!-- Chat form container -->
-                <div id="chat-container">
-                    <h6>The Movie Source chat!</h6>
-                    <form>
-                        <div class="row">
-                            <div class="col-md">
-                                <div id='messagesDiv' class="msg-wrapper">
+
+                    <!-- Chat form container -->
+                    <div id="chat-container">
+                        <h6>The Movie Source chat!</h6>
+                        <form>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div id='messagesDiv' class="msg-wrapper">
+                                    </div>
+                                    <hr />
                                 </div>
-                                <hr />
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md">
-                                <input type="text" id='nameInput' placeholder='id yourself' />
+                            <div class="row">
+                                <div class="col-md">
+                                    <input type="text" id='nameInput' placeholder='id yourself' />
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md">
-                                <textarea id='messageInput' placeholder='enter your text' rows="2" required></textarea>
+                            <div class="row">
+                                <div class="col-md">
+                                    <textarea id='messageInput' placeholder='enter your text' rows="2" required></textarea>
+                                </div>
                             </div>
+                        </form>
+                    </div>
+                    <!-- End of chat container -->
+    
+                        <div class="sidebar-sticky">
+                            <ul class="nav flex-column">
+                                <li class="nav-item pt-2 sideList">
+                                </li>
+    
+                            </ul>
                         </div>
-                    </form>
-                </div>
-<!-- End of chat container -->
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item pt-2 sideList">
-                            <!-- do we want this to be a clickable link? -->
-                            <a class="nav-link p-0 sidebar" href="#"></a>
-                        </li>
-
-                    </ul>
-                </div>
-
-                <!-- Chat launcher -->
-                <img class="chat-launcher" border="0" alt="Let's Chat" src="../assets/images/chat_icon.png">
+    
+                        </form>
+                    </div>
+                    <!-- Chat launcher -->
+                    <img class="chat-launcher" alt="Let's Chat" src="../assets/images/chat_icon.png">
             </nav>
         </div>
 
