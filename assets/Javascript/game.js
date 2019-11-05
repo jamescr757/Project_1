@@ -8,7 +8,7 @@ $(document).ready(function() {
     var cardDiv;
 
     // global time delay variable for new sidebar content 
-    var timeDelay = 8 * 1000; 
+    var timeDelay = 8 * 1000;
 
     // global variables for js frame window
     var clickCounter = 0;
@@ -77,13 +77,14 @@ $(document).ready(function() {
     function renderMovieCard(pageName, subInfo) {
         cardDiv = `
             <div>
-                <div class="card m-3 imageLayout">
-                    <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" 
+                <div class="card m-3 imageLayout"
+                data-name= "${posterTitle}"
+                data-release="${posterRelease}"
+                data-id="${posterId}">
+                    <img src="https://image.tmdb.org/t/p/original/${posterImg}" 
                         class="card-img-top" 
                         alt="${posterTitle} image"
-                        data-name= "${posterTitle}"
-                        data-release="${posterRelease}"
-                        data-id="${posterId}"
+                        
                         />
                     <div class="card-body">
                         <p class="card-text"><b>${posterTitle}</b></p>
@@ -93,7 +94,7 @@ $(document).ready(function() {
             </div>`;
 
         $(`.card-deck.${pageName}`).append(cardDiv);
-        $(".card img").on("click", movieClick);
+        $(".card").on("click", movieClick);
     }
 
     // passed test
@@ -127,8 +128,7 @@ $(document).ready(function() {
             $('.card-deck.search-cards').append(`
             <h5 class='text-center text-primary'>No results. Go back or click 'Search' above to try again.</h5>
             `);
-        }
-        else if (response.results.length <= 10) {
+        } else if (response.results.length <= 10) {
             var numberOfCards = response.results.length;
         } else {
             var numberOfCards = 10;
@@ -188,17 +188,17 @@ $(document).ready(function() {
                 apiCall(popularAjax, renderSidebarReleaseDateText, "Popular", "MMMM YYYY", 'popular.html');
                 break;
 
-            // top rated was picked
+                // top rated was picked
             case 1:
                 apiCall(topRatedAjax, renderSidebarRatingText, "Top Rated", 'top-rated.html');
                 break;
 
-            // now playing was picked
+                // now playing was picked
             case 2:
                 apiCall(nowPlayingAjax, renderSidebarRatingText, "Now Playing", 'now-playing.html');
                 break;
 
-            // upcoming was picked
+                // upcoming was picked
             case 3:
                 apiCall(upcomingAjax, renderSidebarReleaseDateText, "Upcoming", "MMMM Do", 'upcoming.html');
                 break;
@@ -223,7 +223,7 @@ $(document).ready(function() {
             posterRelease = moment(posterRelease).format(dateFormat);
 
             var cardDiv = `
-                <li class="nav-item my-4">
+                <li class="nav-item my-3">
                     <p class="card-text my-0">${i+1}. <b>${posterTitle}</b></p>
                     <p class="card-text my-0 poster-release">${posterRelease}</p>
                 </li>`;
@@ -246,7 +246,7 @@ $(document).ready(function() {
             assignResponseData(response, i);
 
             var cardDiv = `
-                <li class="nav-item my-4">
+                <li class="nav-item my-3">
                     <p class="card-text my-0">${i+1}. <b>${posterTitle}</b></p>
                     <p class="card-text my-0 poster-release">Rating: ${posterRating}</p>
                 </li>`;
@@ -268,7 +268,7 @@ $(document).ready(function() {
 
             $('.carousel-inner').append(`
                     <div class="carousel-item">
-                        <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" class="d-block w-100" alt="...">
+                        <img src="https://image.tmdb.org/t/p/original/${posterImg}" class="d-block w-100" alt="...">
                     </div>
                 `)
 
@@ -295,13 +295,15 @@ $(document).ready(function() {
         posterTitle = response.results[randomNumber].title;
         $(`#home-${side}-col`).append(`
             <img 
-                src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}"
+                src="https://image.tmdb.org/t/p/original/${posterImg}"
                 alt="${posterTitle} poster" 
             />
         `);
     }
 
     function movieClick(response) {
+        response.stopImmediatePropagation();
+
         var clickInfo = $(this);
         // viewport width and height in px
         var viewportWidth = $(window).width();
@@ -314,51 +316,49 @@ $(document).ready(function() {
         var frameHeight = viewportHeight - yMargin * 2;
 
 
-        if (clickCounter % 10 === 0) {
+        if (!windowOpen) {
 
-            if (!windowOpen) {
-
-                const jSFrame = new JSFrame();
-                //Style from preset
-                const frame01 = jSFrame.create({
-                    title: clickInfo.attr("data-name"),
-                    left: xMargin,
-                    top: yMargin,
-                    width: frameWidth,
-                    height: frameHeight,
-                    appearanceName: 'material',
-                    appearanceParam: {
-                        border: {
-                            shadow: '2px 2px 10px  rgba(0, 0, 0, 0.5)',
-                            width: 0,
-                            radius: 6,
-                        },
-                        titleBar: {
-                            color: 'white',
-                            background: 'rgba(0,0,0,0.8)',
-                            leftMargin: 40,
-                            height: 30,
-                            fontSize: 20,
-                            buttonWidth: 60,
-                            buttonHeight: 30,
-                            buttonColor: 'white',
-                            buttons: [{
-                                fa: 'fas fa-times',
-                                name: 'closeButton',
-                                visible: true
-                            }, ],
-                        }
+            const jSFrame = new JSFrame();
+            //Style from preset
+            const frame01 = jSFrame.create({
+                title: clickInfo.attr("data-name"),
+                left: xMargin,
+                top: yMargin,
+                width: frameWidth,
+                height: frameHeight,
+                appearanceName: 'material',
+                appearanceParam: {
+                    border: {
+                        shadow: '2px 2px 10px  rgba(0, 0, 0, 0.5)',
+                        width: 0,
+                        radius: 6,
                     },
+                    titleBar: {
+                        color: 'white',
+                        background: 'rgba(0,0,0,0.8)',
+                        leftMargin: 40,
+                        height: 30,
+                        fontSize: 20,
+                        buttonWidth: 60,
+                        buttonHeight: 30,
+                        buttonColor: 'white',
+                        buttons: [{
+                            fa: 'fas fa-times',
+                            name: 'closeButton',
+                            visible: true
+                        }, ],
+                    }
+                },
 
-                    style: {
-                        backgroundColor: 'rgba(220,220,220,0.8)',
-                        overflow: 'hidden',
-                        width: '100%',
-                    },
-                    html: `
+                style: {
+                    backgroundColor: 'rgba(220,220,220,0.8)',
+                    overflow: 'hidden',
+                    width: '100%',
+                },
+                html: `
                         <ul class="nav nav-pills" style="background-color: rgba(0,0,0,.7)" >
                         <li class="nav-item movieButton">
-                        <a class="nav-link" id="infoModule">Info</a>
+                        <a class="nav-link active" id="infoModule">Info</a>
                         </li>
                         <li class="nav-item movieButton">
                         <a class="nav-link" id="trailerModule">Trailer</a>
@@ -371,28 +371,29 @@ $(document).ready(function() {
                         </div>
                         </div>
                         </div>`,
-                }).show();
+            }).show();
+            loadInfo(clickInfo);
+            youtubeApi(clickInfo);
+
+            $("#infoModule").on("click", function() {
+                $("#trailerModule").removeClass("active");
+                $("#infoModule").addClass("active");
+                $("#movieContent").html("");
                 loadInfo(clickInfo);
-                youtubeApi(clickInfo);
+            });
+            windowOpen = true
 
-                $("#infoModule").on("click", function() {
-                    $("#movieContent").html("");
-                    loadInfo(clickInfo);
-                });
-                windowOpen = true
-
-                window.onclick = function(event) {
-                    if (event.path[0].className === "jsframe-modal-window-background") {
-                        frame01.closeFrame();
-                    }
+            window.onclick = function(event) {
+                if (event.path[0].className === "jsframe-modal-window-background") {
+                    frame01.closeFrame();
                 }
-                frame01.showModal(_frame => {
-                    //Callback when modal window is closed.
-                    windowOpen = false;
-                });
             }
+            frame01.showModal(_frame => {
+                //Callback when modal window is closed.
+                windowOpen = false;
+            });
         }
-        clickCounter++;
+
     }
 
 
@@ -405,7 +406,7 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response) {
             var posterImg = response.poster_path;
-            var createMovieImg = $("<img>").attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg)
+            var createMovieImg = $("<img>").attr("src", "https://image.tmdb.org/t/p/original/" + posterImg)
             createMovieImg.addClass("moviePoster")
             var createMovieDiv = $("<div>");
             createMovieDiv.addClass("movieData");
@@ -438,16 +439,18 @@ $(document).ready(function() {
     }
 
     function youtubeApi(clickInfo) {
-        console.log(clickInfo);
         arg2 = clickInfo.attr("data-name") + "+trailer"
         search = arg2.replace(/\s+/g, '+');
-
-        // Youtube api here
-        queryUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&key=AIzaSyCWbq6hcw0U9aqEm-mcqV1feqRnWwDJuJo&q="
+        console.log(clickInfo)
+            // Youtube api here
+        var apiKey = "AIzaSyA-SlSXCRy8gCzjVy3gghUVaOWswF3Juto"
+        queryUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&key=${apiKey}&q=`;
+        console.log(queryUrl)
         $.ajax({
             url: queryUrl + search,
             method: "GET"
         }).then(function(response) {
+            console.log("here")
 
             var vidUrl = [];
             for (var i = 0; i < response.items.length; i++) {
@@ -456,9 +459,12 @@ $(document).ready(function() {
             };
 
             $("#trailerModule").on("click", function(event) {
+                $("#infoModule").removeClass("active");
+                $("#trailerModule").addClass("active")
                 $("#movieContent").html("");
+                $("#movieContent").append(`<div class="row justify-content-around" id="trailersHere"></div>`);
                 vidUrl.forEach(function(url) {
-                    $("#movieContent").append(
+                    $("#trailersHere").append(
                         `<iframe class="trailerBox" width = "392"
                         height = "220.5"
                         src = "https://www.youtube.com/embed/${url}"
@@ -469,6 +475,7 @@ $(document).ready(function() {
                 })
             })
         });
+
     }
 
 
@@ -520,10 +527,71 @@ $(document).ready(function() {
     // register click event for search button on search form
     $('#search-button').on('click', searchClick);
 
+    // Chat box code starts here
 
+    var firebaseConfig = {
+        apiKey: "AIzaSyByy4qbn8q_ok3HqY9L9yQawaHfa9w-JUo",
+        authDomain: "themoviesource-ec7f8.firebaseapp.com",
+        databaseURL: "https://themoviesource-ec7f8.firebaseio.com",
+        projectId: "themoviesource-ec7f8",
+        storageBucket: "themoviesource-ec7f8.appspot.com",
+        messagingSenderId: "404075692642",
+        appId: "1:404075692642:web:3bac80c1fcde772b70c73b",
+        measurementId: "G-J0187NSR5D"
+    };
 
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
 
+    var database = firebase.database();
 
+    var myDataRef = new firebase.database().ref();
+    $('#messageInput').keypress(function(e) {
+        if (e.keyCode == 13) {
+            var name = $('#nameInput').val();
+            if (name) {
+                var text = $('#messageInput').val();
+                myDataRef.push({ name: name, text: text });
+                $('#messageInput').val('');
+            }
+        }
+    });
+
+    myDataRef.on('child_added', function(snapshot) {
+        var message = snapshot.val();
+        displayChatMessage(message.name, message.text);
+    });
+
+    function displayChatMessage(name, text) {
+        if (name) {
+            $('<div/>').text(text).prepend($('<em/>').text(name + ': ')).appendTo($('#messagesDiv'));
+            $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+        } else {
+            event.preventDefault();
+        }
+    };
+
+    // Toggles the chat window
+    var showChat = false;
+    $(".chat-launcher").click(function() {
+        if (!showChat) {
+            $('#chat-container').show();
+            showChat = true;
+            var msgArea = document.getElementById('messagesDiv');
+            msgArea.scrollTop = msgArea.scrollHeight;
+            console.log(msgArea);
+        }
+        else {
+            $('#chat-container').hide();
+            showChat = false;
+        }
+    });
+
+    // clears chat database
+    // myDataRef.remove();
+
+// Chatbox code ends here
 
 
 });
