@@ -8,7 +8,7 @@ $(document).ready(function() {
     var cardDiv;
 
     // global time delay variable for new sidebar content 
-    var timeDelay = 8 * 1000; 
+    var timeDelay = 8 * 1000;
 
     // global variables for js frame window
     var clickCounter = 0;
@@ -81,7 +81,7 @@ $(document).ready(function() {
                 data-name= "${posterTitle}"
                 data-release="${posterRelease}"
                 data-id="${posterId}">
-                    <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" 
+                    <img src="https://image.tmdb.org/t/p/original/${posterImg}" 
                         class="card-img-top" 
                         alt="${posterTitle} image"
                         
@@ -128,8 +128,7 @@ $(document).ready(function() {
             $('.card-deck.search-cards').append(`
             <h5 class='text-center text-primary'>No results. Go back or click 'Search' above to try again.</h5>
             `);
-        }
-        else if (response.results.length <= 10) {
+        } else if (response.results.length <= 10) {
             var numberOfCards = response.results.length;
         } else {
             var numberOfCards = 10;
@@ -189,17 +188,17 @@ $(document).ready(function() {
                 apiCall(popularAjax, renderSidebarReleaseDateText, "Popular", "MMMM YYYY", 'popular.html');
                 break;
 
-            // top rated was picked
+                // top rated was picked
             case 1:
                 apiCall(topRatedAjax, renderSidebarRatingText, "Top Rated", 'top-rated.html');
                 break;
 
-            // now playing was picked
+                // now playing was picked
             case 2:
                 apiCall(nowPlayingAjax, renderSidebarRatingText, "Now Playing", 'now-playing.html');
                 break;
 
-            // upcoming was picked
+                // upcoming was picked
             case 3:
                 apiCall(upcomingAjax, renderSidebarReleaseDateText, "Upcoming", "MMMM Do", 'upcoming.html');
                 break;
@@ -269,7 +268,7 @@ $(document).ready(function() {
 
             $('.carousel-inner').append(`
                     <div class="carousel-item">
-                        <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}" class="d-block w-100" alt="...">
+                        <img src="https://image.tmdb.org/t/p/original/${posterImg}" class="d-block w-100" alt="...">
                     </div>
                 `)
 
@@ -296,7 +295,7 @@ $(document).ready(function() {
         posterTitle = response.results[randomNumber].title;
         $(`#home-${side}-col`).append(`
             <img 
-                src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/${posterImg}"
+                src="https://image.tmdb.org/t/p/original/${posterImg}"
                 alt="${posterTitle} poster" 
             />
         `);
@@ -405,7 +404,7 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response) {
             var posterImg = response.poster_path;
-            var createMovieImg = $("<img>").attr("src", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + posterImg)
+            var createMovieImg = $("<img>").attr("src", "https://image.tmdb.org/t/p/original/" + posterImg)
             createMovieImg.addClass("moviePoster")
             var createMovieDiv = $("<div>");
             createMovieDiv.addClass("movieData");
@@ -522,59 +521,58 @@ $(document).ready(function() {
     // register click event for search button on search form
     $('#search-button').on('click', searchClick);
 
-// Chat box code starts here
+    // Chat box code starts here
 
-var firebaseConfig = {
-    apiKey: "AIzaSyByy4qbn8q_ok3HqY9L9yQawaHfa9w-JUo",
-    authDomain: "themoviesource-ec7f8.firebaseapp.com",
-    databaseURL: "https://themoviesource-ec7f8.firebaseio.com",
-    projectId: "themoviesource-ec7f8",
-    storageBucket: "themoviesource-ec7f8.appspot.com",
-    messagingSenderId: "404075692642",
-    appId: "1:404075692642:web:3bac80c1fcde772b70c73b",
-    measurementId: "G-J0187NSR5D"
-  };
-  
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+    var firebaseConfig = {
+        apiKey: "AIzaSyByy4qbn8q_ok3HqY9L9yQawaHfa9w-JUo",
+        authDomain: "themoviesource-ec7f8.firebaseapp.com",
+        databaseURL: "https://themoviesource-ec7f8.firebaseio.com",
+        projectId: "themoviesource-ec7f8",
+        storageBucket: "themoviesource-ec7f8.appspot.com",
+        messagingSenderId: "404075692642",
+        appId: "1:404075692642:web:3bac80c1fcde772b70c73b",
+        measurementId: "G-J0187NSR5D"
+    };
 
-  var database = firebase.database();
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
 
-  var myDataRef = new firebase.database().ref();
-  $('#messageInput').keypress(function (e) {
-    if (e.keyCode == 13) {
-      var name = $('#nameInput').val();
-      var text = $('#messageInput').val();
-      myDataRef.push({name: name, text: text});
-      $('#messageInput').val('');
-    }       
-  });
+    var database = firebase.database();
 
-  myDataRef.on('child_added', function(snapshot) {
-    var message = snapshot.val();
-    displayChatMessage(message.name, message.text);
-  });
-  
-  function displayChatMessage(name, text) {
-    $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
-    $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-  };
+    var myDataRef = new firebase.database().ref();
+    $('#messageInput').keypress(function(e) {
+        if (e.keyCode == 13) {
+            var name = $('#nameInput').val();
+            var text = $('#messageInput').val();
+            myDataRef.push({ name: name, text: text });
+            $('#messageInput').val('');
+        }
+    });
 
-  // Toggles the chat window
-  var showChat = false;
-  $( ".chat-launcher" ).click(function() {
-        if (!showChat) {    
+    myDataRef.on('child_added', function(snapshot) {
+        var message = snapshot.val();
+        displayChatMessage(message.name, message.text);
+    });
+
+    function displayChatMessage(name, text) {
+        $('<div/>').text(text).prepend($('<em/>').text(name + ': ')).appendTo($('#messagesDiv'));
+        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+    };
+
+    // Toggles the chat window
+    var showChat = false;
+    $(".chat-launcher").click(function() {
+        if (!showChat) {
             $('#chat-container').show();
             showChat = true;
-        }
-        else {
+        } else {
             $('#chat-container').hide();
             showChat = false;
         }
     });
 
-// Chatbox code ends here
+    // Chatbox code ends here
 
 
 
