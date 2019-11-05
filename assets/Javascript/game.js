@@ -224,7 +224,7 @@ $(document).ready(function() {
             posterRelease = moment(posterRelease).format(dateFormat);
 
             var cardDiv = `
-                <li class="nav-item my-4">
+                <li class="nav-item my-3">
                     <p class="card-text my-0">${i+1}. <b>${posterTitle}</b></p>
                     <p class="card-text my-0 poster-release">${posterRelease}</p>
                 </li>`;
@@ -247,7 +247,7 @@ $(document).ready(function() {
             assignResponseData(response, i);
 
             var cardDiv = `
-                <li class="nav-item my-4">
+                <li class="nav-item my-3">
                     <p class="card-text my-0">${i+1}. <b>${posterTitle}</b></p>
                     <p class="card-text my-0 poster-release">Rating: ${posterRating}</p>
                 </li>`;
