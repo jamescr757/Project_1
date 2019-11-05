@@ -143,7 +143,9 @@ form {
 h6 {
     text-align: center;
     color: black;
-    padding-top: 0px;
+    font-size: 110%;
+    padding-top: 5px;
+    font-weight: bold;
 }
 
 #chat-container {
@@ -164,19 +166,19 @@ h6 {
 }
 
 .msg-wrapper em {
-    font-size: 10px;
+    font-size: 16px;
     font-weight: bold;
     color: black;
 }
 
 .msg-wrapper div {
-    font-size: 10px;
+    font-size: 16px;
     color: black;
 }
 
 input[type=text] {
-    width: 95%;
-    padding: 3px;
+    width: 97%;
+    padding: 2px;
     margin-left: 3px;
     box-sizing: border-box;
     border-radius: 6px;
@@ -184,9 +186,9 @@ input[type=text] {
 }
 
 textarea {
-    width: 95%;
-    height: 100px;
-    padding: 3px;
+    width: 97%;
+    height: 80%;
+    padding: 2px;
     box-sizing: border-box;
     border-radius: 6px;
     background-color: lightgrey;
@@ -197,7 +199,7 @@ textarea {
  ::placeholder {
     /* works on Chrome, Firefox, Opera, Safari 10.1+ */
     color: darkgrey;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .chat-launcher {

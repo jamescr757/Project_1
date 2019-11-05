@@ -565,18 +565,19 @@ var firebaseConfig = {
         if (!showChat) {    
             $('#chat-container').show();
             showChat = true;
+            var msgArea = document.getElementById('messagesDiv');
+            msgArea.scrollTop = msgArea.scrollHeight;
+            console.log(msgArea);
         }
         else {
             $('#chat-container').hide();
             showChat = false;
         }
     });
+    
+
 
 // Chatbox code ends here
-
-
-
-
 
 
 });
