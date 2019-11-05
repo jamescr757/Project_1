@@ -22,10 +22,7 @@ html {
 }
 
 #footer {
-    background: black;
-    color: white;
-    padding: 15px 0;
-    padding-left: 7px;
+    padding: 0.25rem 0;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 0.8rem;
 }
