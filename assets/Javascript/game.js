@@ -7,6 +7,9 @@ $(document).ready(function() {
     var posterId;
     var cardDiv;
 
+    // global time delay variable for new sidebar content 
+    var timeDelay = 8 * 1000; 
+
     // global variables for js frame window
     var clickCounter = 0;
     var windowOpen = false;
@@ -118,8 +121,15 @@ $(document).ready(function() {
     // max iterations 10
     // render error screen if user search gets no results
     function renderSearchCards(response) {
+        console.log(response);
 
-        if (response.results.length <= 10) {
+        if (response.results.length === 0) {
+            var numberOfCards = 0;
+            $('.card-deck.search-cards').append(`
+            <h5 class='text-center text-primary'>No results. Go back or click 'Search' above to try again.</h5>
+            `);
+        }
+        else if (response.results.length <= 10) {
             var numberOfCards = response.results.length;
         } else {
             var numberOfCards = 10;
@@ -127,11 +137,11 @@ $(document).ready(function() {
 
         for (var i = 0; i < numberOfCards; i++) {
             assignResponseData(response, i);
-            // format release date for specific page
-            posterRelease = moment(posterRelease).format('YYYY');
 
-            // only render movie card if there is an image
-            if (posterImg) {
+            // only render movie card if there is an image and a date
+            if (posterImg && posterRelease) {
+                // format release date for specific page
+                posterRelease = moment(posterRelease).format('YYYY');
                 renderMovieCard('search-cards', posterRelease);
             }
         }
@@ -179,17 +189,17 @@ $(document).ready(function() {
                 apiCall(popularAjax, renderSidebarReleaseDateText, "Popular", "MMMM YYYY", 'popular.html');
                 break;
 
-                // top rated was picked
+            // top rated was picked
             case 1:
                 apiCall(topRatedAjax, renderSidebarRatingText, "Top Rated", 'top-rated.html');
                 break;
 
-                // now playing was picked
+            // now playing was picked
             case 2:
                 apiCall(nowPlayingAjax, renderSidebarRatingText, "Now Playing", 'now-playing.html');
                 break;
 
-                // upcoming was picked
+            // upcoming was picked
             case 3:
                 apiCall(upcomingAjax, renderSidebarReleaseDateText, "Upcoming", "MMMM Do", 'upcoming.html');
                 break;
@@ -475,31 +485,31 @@ $(document).ready(function() {
         case 'Popular(current)':
             apiCall(popularAjax, renderReleaseDateCard, 'popular', 'MMMM YYYY');
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         case 'Top Rated(current)':
             apiCall(topRatedAjax, renderRatingCard, 'top-rated');
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         case 'Upcoming(current)':
             apiCall(upcomingAjax, renderReleaseDateCard, 'upcoming', 'MMMM Do');
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         case 'Now Playing(current)':
             apiCall(nowPlayingAjax, renderRatingCard, 'now-playing');
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         case 'Search(current)':
             searchApiCards();
             renderSidebarContent();
-            setInterval(renderSidebarContent, 8 * 1000);
+            setInterval(renderSidebarContent, timeDelay);
             break;
 
         default:
@@ -512,6 +522,59 @@ $(document).ready(function() {
     // register click event for search button on search form
     $('#search-button').on('click', searchClick);
 
+// Chat box code starts here
+
+var firebaseConfig = {
+    apiKey: "AIzaSyByy4qbn8q_ok3HqY9L9yQawaHfa9w-JUo",
+    authDomain: "themoviesource-ec7f8.firebaseapp.com",
+    databaseURL: "https://themoviesource-ec7f8.firebaseio.com",
+    projectId: "themoviesource-ec7f8",
+    storageBucket: "themoviesource-ec7f8.appspot.com",
+    messagingSenderId: "404075692642",
+    appId: "1:404075692642:web:3bac80c1fcde772b70c73b",
+    measurementId: "G-J0187NSR5D"
+  };
+  
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  var database = firebase.database();
+
+  var myDataRef = new firebase.database().ref();
+  $('#messageInput').keypress(function (e) {
+    if (e.keyCode == 13) {
+      var name = $('#nameInput').val();
+      var text = $('#messageInput').val();
+      myDataRef.push({name: name, text: text});
+      $('#messageInput').val('');
+    }       
+  });
+
+  myDataRef.on('child_added', function(snapshot) {
+    var message = snapshot.val();
+    displayChatMessage(message.name, message.text);
+  });
+  
+  function displayChatMessage(name, text) {
+    $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+    $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+  };
+
+  // Toggles the chat window
+  var showChat = false;
+  $( ".chat-launcher" ).click(function() {
+        if (!showChat) {    
+            $('#chat-container').show();
+            showChat = true;
+        }
+        else {
+            $('#chat-container').hide();
+            showChat = false;
+        }
+    });
+
+// Chatbox code ends here
 
 
 

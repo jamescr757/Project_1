@@ -25,6 +25,15 @@ html {
     color: white;
 }
 
+#footer {
+    background: black;
+    color: white;
+    padding: 15px 0;
+    padding-left: 7px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+}
+
 nav.navbar {
     background-color: black;
 }
@@ -65,7 +74,6 @@ ul li {
 
 a.sidebar {
     font-size: 1.5rem;
-    /* text-decoration: underline white; */
     margin-bottom: -0.5rem;
     border-bottom: white 0.5px solid;
 }
@@ -94,6 +102,18 @@ a.sidebar {
     width: 100%;
 }
 
+#home-right-col,
+#home-left-col {
+    padding-right: 5rem;
+    padding-left: 5rem;
+    margin-top: 2.5rem;
+}
+
+#carousel-col {
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+}
+
 .imageLayout {
     width: 250px;
     height: 460px;
@@ -114,16 +134,13 @@ a.sidebar {
 
 .movieButton {
     font-size: 15px;
-    float: left;
-    margin: 5px;
-    color: black;
 }
 
 .movieInfo {
     background-color: rgba(255, 255, 255, 1);
     font-size: 15px;
     position: absolute;
-    top: 49px;
+    top: 39px;
     bottom: 0;
     right: 0;
     left: 0;
@@ -212,6 +229,96 @@ h5 {
     cursor: pointer;
 }
 
+
+/* CHat form styling starts here */
+
+form {
+    border: 1px solid #ccc;
+}
+
+h5 {
+    text-align: center;
+    color: black;
+}
+
+#chat-container {
+    display: none;
+    bottom: 25px;
+    margin-top: 10px;
+    border: solid 1px black;
+    position: absolute;
+    width: 100%;
+    right: 0;
+    background-color: rgb(248, 249, 250);
+    border-radius: 6px;
+}
+
+.msg-wrapper {
+    max-height: 150px;
+    overflow: auto;
+    padding-left: 3px;
+}
+
+.msg-wrapper em {
+    font-size: 10px;
+    font-weight: bold;
+    color: black;
+}
+
+.msg-wrapper div {
+    font-size: 10px;
+    color: black;
+}
+
+input[type=text] {
+    width: 95%;
+    padding: 3px;
+    margin-left: 3px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background-color: lightgrey;
+}
+
+textarea {
+    width: 95%;
+    height: 100px;
+    padding: 3px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background-color: lightgrey;
+    resize: none;
+    margin-left: 3px;
+}
+
+ ::placeholder {
+    /* works on Chrome, Firefox, Opera, Safari 10.1+ */
+    color: darkgrey;
+    font-size: 12px;
+}
+
+.chat-launcher {
+    position: fixed;
+    bottom: 50px;
+    right: 250px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    z-index: 9;
+    opacity: 0.5;
+}
+
+.chat-launcher :hover {
+    cursor: pointer;
+}
+
+#trailerModule,
+#infoModule,
+#trailerModule:hover,
+#infoModule:hover {
+    color: white;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 800px) {
     .moviePoster {
         display: none;
@@ -220,3 +327,6 @@ h5 {
         overflow: scroll;
     } */
 }
+
+
+/* CHat form styling ends here */
