@@ -1,12 +1,12 @@
 # The Movie Source 
 
-## Overview 
+### Overview 
 
 This application is a one-stop shop for movie watchers. Users can watch trailers and look at movie details like the rating, plot, runtime, etc. for any movie. The app is connected to a movie database API, so the Upcoming movies stay up-to-date. The movie trailers are delivered through YouTube's API.
 
 --------
 
-## User Experience 
+### User Experience 
 
 The home page is essentially a cover page. The carousel rotates movie posters from the Upcoming category. The posters flanking the carousel are randomly pulled from the Top Rated and Popular categories. Therefore, the home page should always look different giving it a fresh look. 
 
@@ -16,6 +16,6 @@ If the user wants to search for the movie, the search results will be displayed 
 
 -------
 
-## File System 
+### File System 
 
 The file system is straightforward. This is a strictly front-end application.
