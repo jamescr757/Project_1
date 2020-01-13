@@ -1,10 +1,17 @@
-# The Movie Source - https://jamescr757.github.io/Project_1/
+# The Movie Source
 
 ### Overview 
 
 This application is a one-stop shop for movie watchers. Users can watch trailers and look at movie details like the rating, plot, runtime, etc. for any movie. The app is connected to a movie database API, so the Upcoming movies stay up-to-date. The movie trailers are delivered through YouTube's API.
 
 --------
+
+### Application Link
+
+https://jamescr757.github.io/Project_1/
+
+---------
+
 
 ### User Experience 
 
